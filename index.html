@@ -55,14 +55,34 @@
     <!-- Begin page content -->
     <div class="container">
       <div class="page-header">
-        <h1>Sticky footer with fixed navbar</h1>
+        <h1>Little Lost Robot for Multi-Agent Systems</h1>
       </div>
-      <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body &gt; .container</code>.</p>
-      <p>Back to <a href="../sticky-footer">the default sticky footer</a> minus the navbar.</p>
+      <p class="lead"></p>
+      <div class="agent" id="agent1">Test</div>
+      <div class="agent" id="agent2">Test</div>
+      <div class="agent" id="agent3">Test</div>
+      <div class="announcementbuttons">
+        <button id="announcement1">Make Announcement 1</button>
+        <button id="announcement2">Make Announcement 2</button>
+        <button id="announcement3">Make Announcement 2</button>
+      </div>
     </div>
 
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+    $('#announcement1').on('click',function() {
+      $('#agent1').html('test1');
+    });
+
+    $('#announcement2').on('click',function() {
+      $('#agent2').html('test2');
+    });
+
+    $('#announcement3').on('click',function() {
+      $('#agent3').html('test3');
+    });
+    </script>
   </body>
 </html>

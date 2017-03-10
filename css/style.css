@@ -1,3 +1,20 @@
 body > .container {
   padding-top: 60px;
 }
+
+.agent {
+  background-color: #e7e7e7;
+  height: 100px;
+  width: 100px;
+  display: inline-block;
+  color: #777;
+}
+
+.announcementbuttons {
+  display: block;
+  margin: 20px 0px;
+}
+
+button#announcement1 {
+  text-decoration: none;
+}
