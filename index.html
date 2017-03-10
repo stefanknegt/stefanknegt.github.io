@@ -73,7 +73,17 @@
     <script src="js/bootstrap.min.js"></script>
     <script>
     $('#announcement1').on('click',function() {
-      $('#agent1').html('test1');
+
+      // Debug
+      var test = $('#agent1').text();
+      console.log("De waarde is ", test);
+
+      if($('#agent1').text() == 'Test') {
+        $('#agent1').html('Hoi');
+      } else {
+        $('#agent1').html('Test');
+      }
+
     });
 
     $('#announcement2').on('click',function() {
