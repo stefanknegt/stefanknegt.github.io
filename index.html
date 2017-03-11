@@ -32,21 +32,11 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+            <li><a href="introduction">Introduction</a></li>
+            <li><a href="problem-outline">Problem outline</a></li>
+            <li><a href="theory">Theory</a></li>
+            <li><a href="simulation">Simulation</a></li>
+            <li><a href="analysis">Analysis</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -54,45 +44,52 @@
 
     <!-- Begin page content -->
     <div class="container">
-      <div class="page-header">
-        <h1>Little Lost Robot for Multi-Agent Systems</h1>
+
+      <div id="introduction">
+        <h2>Introduction</h2>
+        <p>This is the project the course Multi-Agent systems in the academic year 2016-2017 of Sjaak ten Caat, Denny Diepgrond, and Stefan Knegt.
       </div>
-      <p class="lead"></p>
-      <div class="agent" id="agent1">Test</div>
-      <div class="agent" id="agent2">Test</div>
-      <div class="agent" id="agent3">Test</div>
-      <div class="announcementbuttons">
-        <button id="announcement1">Make Announcement 1</button>
-        <button id="announcement2">Make Announcement 2</button>
-        <button id="announcement3">Make Announcement 2</button>
+
+      <div id="problem-outline">
+        <h2>Problem Outline</h2>
+        <p>For our project, we will be looking at a short story by Isaac Asimov called Little Lost Robot. In this story the main character, Susan Calvin, is tasked with finding a robot among multiple almost identical other robots. The robot she is looking for, is trying to hide actively. This robot, called NS-2, uses all of its knowledge about the other robots to make sure that it reacts in exactly the same way as they do. What is known to everyone is that every normal robot will follow the three laws of robotics, namely:
+        <ol class="robotrules">
+        <li>A robot may not injure a human being or, through inaction, allow a human being to come to harm.</li>
+        <li>A robot must obey the orders given it by human beings except where such orders would conflict with the First Law.</li>
+        <li>A robot must protect its own existence as long as such protection does not conflict with the First or Second Laws.</li>
+        </ol>
+        However, NS-2 has been modified in such a way that the First Law only states "A robot may not injure a human being" but will still react in such a way as it thinks other robots will react. Finally, NS-2 is different from other robots due to additional education in that it can distinguish between different types of radiation, for instance between harmless infrared and gamma radiation, which is lethal to robots but safe for humans. It does not realize that the other normal robots do not know the difference.
+        In the end Susan solves the problem as follows: she tells each of the robots separately that gamma radiation will destroy a robot within only a few steps. They are then kept isolated from each other, so that they cannot communicate. Each robot is placed in a large room, with walls between them so that they cannot see each other but they can see the center of the room. This room is filled with infrared radiation. Susan sits in a chair at the center, and once all the robots are in position a large weight is dropped down from above the chair and bumped away from the chair at the last second. Only NS-2 moves from his position, before realizing that none of the other robots moved, and Susan has found her robot.
+        The reason that this worked is that the other robots could not distinguish between different types of radiation. They all thought that they would be unable to rescue Susan before being destroyed by the perceived gamma radiation and so did not act at all. NS-2 however saw that the radiation was safe and thought that the other robots would act in accordance with the First Law, and so was the only robot that did act.</p>
+      </div>
+
+      <div id="theory">
+        <h2>Theory</h2>
+      </div>
+
+      <div id="simulation">
+        <h2>Simulation</h2>
+
+        <div class="agentcontainer">
+          <div class="agent" id="agent1">Test</div>
+          <div class="agent" id="agent2">Test</div>
+          <div class="agent" id="agent3">Test</div>
+        </div>
+
+        <div class="announcementbuttons">
+          <button id="announcement1">Make Announcement 1</button>
+          <button id="announcement2">Make Announcement 2</button>
+          <button id="announcement3">Make Announcement 2</button>
+        </div>
+      </div>
+
+      <div id="analysis">
+        <h2>Epistemic Analysis</h2>
       </div>
     </div>
-
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script>
-    $('#announcement1').on('click',function() {
-
-      // Debug
-      var test = $('#agent1').text();
-      console.log("De waarde is ", test);
-
-      if($('#agent1').text() == 'Test') {
-        $('#agent1').html('Hoi');
-      } else {
-        $('#agent1').html('Test');
-      }
-
-    });
-
-    $('#announcement2').on('click',function() {
-      $('#agent2').html('test2');
-    });
-
-    $('#announcement3').on('click',function() {
-      $('#agent3').html('test3');
-    });
-    </script>
+    <script src="js/main.js"></script>
   </body>
 </html>

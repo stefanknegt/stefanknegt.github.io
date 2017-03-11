@@ -18,3 +18,17 @@ body > .container {
 button#announcement1 {
   text-decoration: none;
 }
+
+ol.robotrules {
+  margin-top: 20px;
+}
+
+#introduction, #problem-outline, #simulation, #theory{
+  padding-bottom: 9px;
+  margin: 40px 0 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.agentcontainer {
+  margin-top: 40px;
+}
