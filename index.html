@@ -67,32 +67,32 @@
       In the 'Little Lost Robot' story we can identify three separate agents: Susan, the lost robot and the normal robots. The normal robots are all exact duplicates so it is irrelevant how many there are for the purpose of this analysis. Therefore we will only consider one. Let Susan be agent S, the lost robot be agent L, and the normal robot be agent N. Since the story deals with what agents believe, rather than what they know, we used the KD45 system. So we define the model to be used as $M = \langle S, \pi, R^B_S, R^B_L, R^B_N\rangle$.
 
       We define the propositional atoms as
-      \begin{itemize}
-          \item Gr = gamma radiation is present
-          \item Ir = infrared radiation is present
-          \item Hd = the situation is dangerous for humans
-          \item Rd = the situation is dangerous for robots
-          \item La = the lost robot acts
-          \item Na = the normal robot acts
-      \end{itemize}
+      <ul>
+          <li> Gr = gamma radiation is present <\li>
+          <li> Ir = infrared radiation is present <\li>
+          <li> Hd = the situation is dangerous for humans <\li>
+          <li> Rd = the situation is dangerous for robots <\li>
+          <li> La = the lost robot acts <\li>
+          <li> Na = the normal robot acts <\li>
+      <\ul>
 
       The initial situation is as follows:
-      \begin{itemize}
-          \item $M\models C (Sd \rightarrow Na)$ : It's common knowledge that normal robots will act if a human is in danger.
-          \item $M\models C (B_L(Na) \rightarrow La)$ : It's common knowledge that, whenever the lost robot thinks that the normal robot will act, it will also act.
-          \item $M\models C (B_L(\neg Na) \rightarrow \neg La)$ : And when the lost robot believes that the normal robot will not act, it will also not act.
-      \end{itemize}
+      <ul>
+          <li> $M\models C (Sd \rightarrow Na)$ : It's common knowledge that normal robots will act if a human is in danger. <\li>
+          <li> $M\models C (B_L(Na) \rightarrow La)$ : It's common knowledge that, whenever the lost robot thinks that the normal robot will act, it will also act. <\li>
+          <li> $M\models C (B_L(\neg Na) \rightarrow \neg La)$ : And when the lost robot believes that the normal robot will not act, it will also not act. <\li>
+      <\ul>
       Susan's goal is to find one or more announcements that will result in either the lost robot acting without the normal robot, or the normal robot acting without the lost robot, so that she can identify them. This is not yet possible with the current set of formulas. 
 
       Then, Susan tells each robot about the effects of radiation, which adds the following formulas:
-      \begin{itemize}
-          \item $M \models C((Hd \land Rd) \rightarrow \neg Na)$ : Normal robots will not act even if someone is in danger, since they will not be able to do anything before being destroyed.
-          \item $M \models B_L (Gr \leftrightarrow Rd)$ : The lost robot believes that gamma radiation and only gamma radiation will break a robot.
-          \item $M \models B_N ((Gr \lor Ir) \leftrightarrow Rd$ : The normal robot also believes that gamma radiation will break a robot, but it cannot distinguish between infrared and gamma radiation.
-          \item $M \models B_L (B_N (Gr \leftrightarrow Rd))$ : The lost robot believes that the normal robot also believes that it can only be broken by gamma radiation. 
-          \item $M \models B_S (B_N ((Gr \lor Ir) \rightarrow Rd))$ : Susan believes that normal robots cannot distinguish between infrared and gamma radiation.
-          \item $M \models B_S (B_L (B_N (Gr \leftrightarrow Rd)))$ : Susan also believes that the lost robot believes that the normal robot believes that it is only in danger when there is gamma radiation.
-      \end{itemize}
+      <ul>
+          <li> $M \models C((Hd \land Rd) \rightarrow \neg Na)$ : Normal robots will not act even if someone is in danger, since they will not be able to do anything before being destroyed.<\li>
+          <li> $M \models B_L (Gr \leftrightarrow Rd)$ : The lost robot believes that gamma radiation and only gamma radiation will break a robot.<\li>
+          <li> $M \models B_N ((Gr \lor Ir) \leftrightarrow Rd$ : The normal robot also believes that gamma radiation will break a robot, but it cannot distinguish between infrared and gamma radiation.<\li>
+          <li> $M \models B_L (B_N (Gr \leftrightarrow Rd))$ : The lost robot believes that the normal robot also believes that it can only be broken by gamma radiation. <\li> 
+          <li> $M \models B_S (B_N ((Gr \lor Ir) \rightarrow Rd))$ : Susan believes that normal robots cannot distinguish between infrared and gamma radiation. <\li>
+          <li> $M \models B_S (B_L (B_N (Gr \leftrightarrow Rd)))$ : Susan also believes that the lost robot believes that the normal robot believes that it is only in danger when there is gamma radiation. <\li>
+      <\ul>
 
       In the resulting models, we can obtain Susan's goal state, $B_S(Na \land \neg La) \lor B_S(\neg Na \land La)$ as follows:
       $$[Hd \land Ir]B_S(\neg Na \land La)$$
