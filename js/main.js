@@ -11,15 +11,17 @@ beliefnormal = [];
 belieflost = [];
 
 // Given the current knowledge, determine the implications
-function checkImplications(array) {
+function checkImplications(array,agent) {
   var changed = 1;
 
   while(changed == 1) {
 
-    if(array.includes("gr")) {
-      beliefnormal.push("dr")
-    } else if(array.includes("ir") && !array.includes("gr")) {
-      alert("there is only dangerous radiation for normal robots present");
+    if(generalknowledge.includes("gr") && (agent="agent1" || agent="agent2") {
+      array.push("dr")
+    }
+
+    if(generalknowledge.includes("gr") && (agent="agent2") {
+      array.push("dr")
     }
       changed = 0;
     }
@@ -80,7 +82,10 @@ $('#generatemodel').on('click',function() {
   console.log(generalknowledge);
 
   // Check implications of the given knowledge
-  checkImplications(generalknowledge);
+  checkImplications(generalknowledge,"agent1");
+  checkImplications(generalknowledge,"agent2");
+
+  // Generate the model
   generateModel(generalknowledge,'generalknowledge');
   generateModel(belieflost,'agent1');
   generateModel(beliefnormal,'agent2');
