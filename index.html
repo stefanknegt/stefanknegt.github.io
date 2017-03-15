@@ -83,14 +83,14 @@
             <li> $M\models C (B_L(Na) \rightarrow La)$ : It's common knowledge that, whenever the lost robot thinks that the normal robot will act, it will also act. </li>
             <li> $M\models C (B_L(\neg Na) \rightarrow \neg La)$ : It's also common knowledge that when the lost robot believes that the normal robot will not act, it will also not act. </li>
         </ul>
-        Susan's goal is to find one or more announcements that will result in either the lost robot acting without the normal robot, or the normal robot acting without the lost robot, so that she can identify them. This is not yet possible with the current set of formulas. 
+        Susan's goal is to find one or more announcements that will result in either the lost robot acting without the normal robot, or the normal robot acting without the lost robot, so that she can identify them. This is not yet possible with the current set of formulas.
 
         Then, Susan tells each robot about the effects of radiation, which adds the following formulas:
         <ul>
             <li> $M \models C((Hd \land Dr) \rightarrow \neg Na)$ : Normal robots will not act even if someone is in danger when dangerous radiation is present, since they will not be able to do anything before being destroyed.</li>
             <li> $M \models B_L (Gr \leftrightarrow Dr)$ : The lost robot believes that gamma radiation and only gamma radiation counts as dangerous radiation.</li>
             <li> $M \models B_N ((Gr \lor Ir) \leftrightarrow Dr$ : The normal robot believes that every type of radiation is dangerous radiation, since they cannot distinguish between different types.</li>
-            <li> $M \models B_L (B_N (Gr \leftrightarrow Dr))$ : The lost robot believes that the normal robot also believes that it only needs to be aware of gamma radiation. </li> 
+            <li> $M \models B_L (B_N (Gr \leftrightarrow Dr))$ : The lost robot believes that the normal robot also believes that it only needs to be aware of gamma radiation. </li>
             <li> $M \models B_S (B_N ((Gr \lor Ir) \leftrightarrow Dr))$ : Susan believes that normal robots cannot distinguish between infrared and gamma radiation. </li>
             <li> $M \models B_S (B_L (B_N (Gr \leftrightarrow Dr)))$ : Susan also believes that the lost robot believes that the normal robot believes that it is only in danger when there is gamma radiation. </li>
         </ul>
@@ -103,16 +103,69 @@
       <div id="simulation">
         <h2>Simulation</h2>
 
-        <div class="agentcontainer">
-          <div class="agent" id="agent1">Test</div>
-          <div class="agent" id="agent2">Test</div>
-          <div class="agent" id="agent3">Test</div>
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-3">
+            <form class="form">
+              <div class="switch-field">
+                <div class="switch-title">$Gr$ </div>
+                <input type="radio" id="gr-false" name="switch_2" value="false" checked/>
+                <label for="gr-false">False</label>
+                <input type="radio" id="gr-true" name="switch_2" value="true" />
+                <label for="gr-true">True</label>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-xs-6 col-sm-6 col-md-3">
+            <form class="form">
+              <div class="switch-field">
+                <div class="switch-title">$Ir$ </div>
+                <input type="radio" id="ir-false" name="switch_2" value="false" checked/>
+                <label for="ir-false">False</label>
+                <input type="radio" id="ir-true" name="switch_2" value="true" />
+                <label for="ir-true">True</label>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-xs-6 col-sm-6 col-md-3">
+            <form class="form">
+              <div class="switch-field">
+                <div class="switch-title">$Dr$</div>
+                <input type="radio" id="dr-false" name="switch_2" value="false" checked/>
+                <label for="dr-false">False</label>
+                <input type="radio" id="dr-true" name="switch_2" value="true" />
+                <label for="dr-true">True</label>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-xs-6 col-sm-6 col-md-3">
+            <form class="form">
+              <div class="switch-field">
+                <div class="switch-title">$Hd$ </div>
+                <input type="radio" id="hd-false" name="switch_2" value="false" checked/>
+                <label for="hd-false">False</label>
+                <input type="radio" id="hd-true" name="switch_2" value="true" />
+                <label for="hd-true">True</label>
+              </div>
+            </form>
+          </div>
         </div>
 
-        <div class="announcementbuttons">
-          <button id="announcement1">Make Announcement 1</button>
-          <button id="announcement2">Make Announcement 2</button>
-          <button id="announcement3">Make Announcement 2</button>
+        <div class="informationcontainer">
+          General Knowledge<br>
+          <div class="agent" id="generalknowledge"></div><br>
+          Agent 1<br>
+          <div class="agent" id="agent1"></div><br>
+          Agent 2<br>
+          <div class="agent" id="agent2"></div><br>
+          Agent 3<br>
+          <div class="agent" id="agent3"></div><br>
+        </div>
+
+        <div class="generatemodelbutton">
+          <button id="generatemodel">Generate new model</button>
         </div>
       </div>
 
