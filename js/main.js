@@ -26,7 +26,7 @@ function checkImplications(array) {
       beliefnormal.push("dr")
       changed = 1;
     }
-    if(array.includes("hd") && !beliefnormal.includes("dr") && !beliefnormal.includes("na") ) {
+    if(array.includes("hd") && !beliefnormal.includes("dr") && !array.includes("dr") && !beliefnormal.includes("na") ) {
       beliefnormal.push("na")
       changed = 1;
     }
