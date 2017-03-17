@@ -36,7 +36,11 @@ function checkImplications(array) {
       belieflost.push("dr")
       changed = 1;
     }
-    if(belieflost.includes("na")) {
+    if(array.includes("hd") && !belieflost.includes("dr") && !belieflost.includes("na")) {
+      belieflost.push("na");
+      changed = 1;
+    }
+    if(belieflost.includes("na") && !belieflost.includes("la")) {
       belieflost.push("la")
       changed = 1;
     }
