@@ -5,14 +5,13 @@ body > .container {
 .agent {
   background-color: #e7e7e7;
   height: 100px;
-  width: 100px;
+  width: 200px;
   display: inline-block;
   color: #777;
 }
 
 .generatemodelbutton {
   display: block;
-  margin: 20px 0px;
 }
 
 button#announcement1 {
@@ -30,7 +29,7 @@ ol.robotrules {
 }
 
 .informationcontainer {
-  margin-top: 40px;
+  padding: 40px;
 }
 
 .switch-field {

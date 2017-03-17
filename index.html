@@ -79,7 +79,7 @@
 
         The initial situation is as follows:
         <ul>
-            <li> $M\models C (Sd \leftrightarrow Na)$ : It's common knowledge that normal robots will act if and only if a human is in danger.</li>
+            <li> $M\models C (Hd \leftrightarrow Na)$ : It's common knowledge that normal robots will act if and only if a human is in danger.</li>
             <li> $M\models C (B_L(Na) \rightarrow La)$ : It's common knowledge that, whenever the lost robot thinks that the normal robot will act, it will also act. </li>
             <li> $M\models C (B_L(\neg Na) \rightarrow \neg La)$ : It's also common knowledge that when the lost robot believes that the normal robot will not act, it will also not act. </li>
         </ul>
@@ -154,19 +154,29 @@
         </div>
 
         <div class="informationcontainer">
-          General Knowledge<br>
-          <div class="agent" id="generalknowledge"></div><br>
-          Agent 1<br>
-          <div class="agent" id="agent1"></div><br>
-          Agent 2<br>
-          <div class="agent" id="agent2"></div><br>
-          Agent 3<br>
-          <div class="agent" id="agent3"></div><br>
+          <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-3">
+              General<br>
+              <div class="agent" id="generalknowledge"></div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-3">
+              Lost Robot<br>
+              <div class="agent" id="agent1"></div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-3">
+              Normal Robots<br>
+              <div class="agent" id="agent2"></div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-3">
+              Susan<br>
+              <div class="agent" id="agent3"></div>
+            </div>
+          </div>
+          <div class="generatemodelbutton">
+            <button id="generatemodel">Generate new model</button>
+          </div>
         </div>
 
-        <div class="generatemodelbutton">
-          <button id="generatemodel">Generate new model</button>
-        </div>
       </div>
 
       <div id="analysis">

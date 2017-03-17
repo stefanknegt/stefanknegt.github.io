@@ -15,14 +15,36 @@ function checkImplications(array) {
   var changed = 1;
 
   while(changed == 1) {
+    changed = 0;
 
-    if(array.includes("gr")) {
+    //Normal Robot
+    if(array.includes("gr") && !beliefnormal.includes("dr")) {
       beliefnormal.push("dr")
-    } else if(array.includes("ir") && !array.includes("gr")) {
-      alert("there is only dangerous radiation for normal robots present");
+      changed = 1;
     }
-      changed = 0;
+    if(array.includes("ir") && !beliefnormal.includes("dr")) {
+      beliefnormal.push("dr")
+      changed = 1;
     }
+    if(array.includes("hd") && !beliefnormal.includes("dr") && !beliefnormal.includes("na") ) {
+      beliefnormal.push("na")
+      changed = 1;
+    }
+
+    //Lost Robot
+    if(array.includes("gr") && !belieflost.includes("dr")) {
+      belieflost.push("dr")
+      changed = 1;
+    }
+    if(belieflost.includes("na")) {
+      belieflost.push("la")
+      changed = 1;
+    }
+
+    //Susan
+
+
+  }
 };
 
 // Print all the formulas for the agents and the general knowledge
@@ -35,6 +57,11 @@ function generateModel(array,agent) {
 };
 
 $('#generatemodel').on('click',function() {
+  // Remove all the beliefs
+  beliefsusan = [];
+  beliefnormal = [];
+  belieflost = [];
+
   // Check what is set to be true by the user
   if($('#gr-true').is(':checked')) {
     generalknowledge.push("gr");
@@ -76,11 +103,10 @@ $('#generatemodel').on('click',function() {
   });
   generalknowledge = uniquegeneralknowledge;
 
-  // Debug
-  console.log(generalknowledge);
-
   // Check implications of the given knowledge
   checkImplications(generalknowledge);
+
+  //Generate the models based on the current knowledge
   generateModel(generalknowledge,'generalknowledge');
   generateModel(belieflost,'agent1');
   generateModel(beliefnormal,'agent2');
