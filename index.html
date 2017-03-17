@@ -79,7 +79,7 @@
 
         The initial situation is as follows:
         <ul>
-            <li> $M\models C (Sd \rightarrow Na)$ : It's common knowledge that normal robots will act if a human is in danger. </li>
+            <li> $M\models C (Sd \leftrightarrow Na)$ : It's common knowledge that normal robots will act if and only if a human is in danger.</li>
             <li> $M\models C (B_L(Na) \rightarrow La)$ : It's common knowledge that, whenever the lost robot thinks that the normal robot will act, it will also act. </li>
             <li> $M\models C (B_L(\neg Na) \rightarrow \neg La)$ : It's also common knowledge that when the lost robot believes that the normal robot will not act, it will also not act. </li>
         </ul>
@@ -87,7 +87,7 @@
 
         Then, Susan tells each robot about the effects of radiation, which adds the following formulas:
         <ul>
-            <li> $M \models C((Hd \land Dr) \rightarrow \neg Na)$ : Normal robots will not act even if someone is in danger when dangerous radiation is present, since they will not be able to do anything before being destroyed.</li>
+            <li> $M \models C((Hd \land \neg Dr) \leftrightarrow Na)$ : Normal robots will only act if someone is in danger when there is no dangerous radiation present, since they will not be able to do anything before being destroyed. This rule replaces the very first rule.</li>
             <li> $M \models B_L (Gr \leftrightarrow Dr)$ : The lost robot believes that gamma radiation and only gamma radiation counts as dangerous radiation.</li>
             <li> $M \models B_N ((Gr \lor Ir) \leftrightarrow Dr$ : The normal robot believes that every type of radiation is dangerous radiation, since they cannot distinguish between different types.</li>
             <li> $M \models B_L (B_N (Gr \leftrightarrow Dr))$ : The lost robot believes that the normal robot also believes that it only needs to be aware of gamma radiation. </li>
@@ -171,6 +171,8 @@
 
       <div id="analysis">
         <h2>Epistemic Analysis</h2>
+            <h3> Kripke Model </h3>
+            <center><img src="KripkeModel.png" width="1200" height="1000"></center>
       </div>
     </div>
     <!-- Placed at the end of the document so the pages load faster -->
