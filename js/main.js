@@ -64,25 +64,37 @@ function generateModel(array,agent) {
 function generateKripke(knowledge) {
     if(knowledge.includes("gr")){
         if(knowledge.includes("hd")){
-            document.getElementById("Kripke").src= "models/MASprojectGrHd.png";
+            document.getElementById("Kripke1").src= "models/MASprojectGrHd1.png";
+            document.getElementById("Kripke2").src= "models/MASprojectGrHd2.png";
+            document.getElementById("Kripke3").src= "models/MASprojectGrHd3.png";
         }
         else{
-            document.getElementById("Kripke").src= "models/MASprojectGr.png";
+            document.getElementById("Kripke1").src= "models/MASprojectGr1.png";
+            document.getElementById("Kripke2").src= "models/MASprojectGr2.png";
+            document.getElementById("Kripke3").src= "models/MASprojectGr3.png";
         }
     }
     else if(knowledge.includes("ir")){
         if(knowledge.includes("hd")){
-            document.getElementById("Kripke").src= "models/MASprojectIrHd.png";
+            document.getElementById("Kripke1").src= "models/MASprojectIrHd1.png";
+            document.getElementById("Kripke2").src= "models/MASprojectIrHd2.png";
+            document.getElementById("Kripke3").src= "models/MASprojectIrHd3.png";
         }
         else{
-            document.getElementById("Kripke").src= "models/MASprojectIr.png";
+            document.getElementById("Kripke1").src= "models/MASprojectIr1.png";
+            document.getElementById("Kripke2").src= "models/MASprojectIr2.png";
+            document.getElementById("Kripke3").src= "models/MASprojectIr3.png";
         }
     }
     else if(knowledge.includes("hd")){
-        document.getElementById("Kripke").src= "models/MASprojectHd.png";
+        document.getElementById("Kripke1").src= "models/MASprojectHd1.png";
+        document.getElementById("Kripke2").src= "models/MASprojectHd2.png";
+        document.getElementById("Kripke3").src= "models/MASprojectHd3.png";
     }
     else{
-        document.getElementById("Kripke").src= "models/MASproject.png";
+        document.getElementById("Kripke1").src= "models/MASproject1.png";
+        document.getElementById("Kripke2").src= "models/MASproject2.png";
+        document.getElementById("Kripke3").src= "models/MASproject3.png";
     }
 };
 
