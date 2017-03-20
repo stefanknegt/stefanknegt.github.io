@@ -8,6 +8,7 @@ body > .container {
   width: 200px;
   display: inline-block;
   color: #777;
+  margin-top: 10px;
 }
 
 .generatemodelbutton {
