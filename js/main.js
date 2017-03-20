@@ -60,6 +60,32 @@ function generateModel(array,agent) {
   $('#'+agent).html(output.join(" "));
 };
 
+// Change the Kripke model
+function generateKripke(knowledge) {
+    if(knowledge.includes("gr")){
+        if(knowledge.includes("hd")){
+            document.getElementById("Kripke").src= "models/MASprojectGrHd.png";
+        }
+        else{
+            document.getElementById("Kripke").src= "models/MASprojectGr.png";
+        }
+    }
+    else if(knowledge.includes("ir")){
+        if(knowledge.includes("hd")){
+            document.getElementById("Kripke").src= "models/MASprojectIrHd.png";
+        }
+        else{
+            document.getElementById("Kripke").src= "models/MASprojectIr.png";
+        }
+    }
+    else if(knowledge.includes("hd")){
+        document.getElementById("Kripke").src= "models/MASprojectHd.png";
+    }
+    else{
+        document.getElementById("Kripke").src= "models/MASproject.png";
+    }
+};
+
 $('#generatemodel').on('click',function() {
   // Remove all the beliefs
   beliefsusan = [];
@@ -115,4 +141,7 @@ $('#generatemodel').on('click',function() {
   generateModel(belieflost,'agent1');
   generateModel(beliefnormal,'agent2');
   generateModel(beliefsusan,'agent3');
+  
+  //Generate accompanying Kripke model
+  generateKripke (generalknowledge);
 });
