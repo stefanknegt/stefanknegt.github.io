@@ -161,17 +161,17 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-3">
               Lost Robot<br>
-              <img src="NS-2.png" />
+              <img src="NS-2.png" width="200" height="200"/>
               <div class="agent" id="agent1"></div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-3">
               Normal Robots<br>
-              <img src="otherRobots.png" />
+              <img src="otherRobots.png" width="200" height="200"/>
               <div class="agent" id="agent2"></div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-3">
               Susan<br>
-              <img src="DrCalvin.png" />
+              <img src="DrCalvin.png" width="200" height="200"/>
               <div class="agent" id="agent3"></div>
             </div>
           </div>
@@ -187,6 +187,10 @@
             <h3> Kripke Model </h3>
             <center><img src="models/MASproject.png" width="1200" height="400" id="Kripke"></center>
             <center><img src="models/legend.png" width="350" height="200"></center>
+            The main challenge when constructing the Kripke model is the large amount of worlds that could be considered. As there are 6 axioms, which could each be true or false, there are $2^6=64$ possible worlds. However,
+            many of these worlds are irrelevant considering the general knowledge of the agents. For instance, in a world where gamma radiation is true, everyone believes that the radiation is dangerous to the robots, and so
+            none of the robots will act. So there are only two relevant worlds where gamma radiation is true, one where a human is in danger, and one where a human is not in danger. By eliminating irrelevant worlds like so, we
+            ended up with the 8 worlds shown in the legend, which prove sufficient for illustrating the change of the believes for each agent over the course of the story. 
       </div>
     </div>
     <!-- Placed at the end of the document so the pages load faster -->
