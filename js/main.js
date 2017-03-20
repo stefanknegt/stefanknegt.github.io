@@ -18,6 +18,10 @@ function checkImplications(array) {
     changed = 0;
 
     //Normal Robot
+    if(array.includes("dr") && !beliefnormal.includes("dr")) {
+      beliefnormal.push("dr");
+    }
+
     if(array.includes("gr") && !beliefnormal.includes("dr")) {
       beliefnormal.push("dr")
       changed = 1;
@@ -32,6 +36,9 @@ function checkImplications(array) {
     }
 
     //Lost Robot
+    if(array.includes("dr") && !belieflost.includes("dr")) {
+      belieflost.push("dr");
+    }
     if(array.includes("gr") && !belieflost.includes("dr")) {
       belieflost.push("dr")
       changed = 1;
@@ -40,13 +47,20 @@ function checkImplications(array) {
       belieflost.push("na");
       changed = 1;
     }
+
+    if(array.includes("ir") && array.includes("hd") &&  !belieflost.includes("na") && !belieflost.includes("dr")) {
+      belieflost.push("na");
+    }
+
     if(belieflost.includes("na") && !belieflost.includes("la")) {
-      belieflost.push("la")
+      belieflost.push("la");
       changed = 1;
     }
 
     //Susan
-
+    if(belieflost.includes("la") && !beliefnormal.includes("na") && !beliefsusan.includes("I have identified the lost robot")) {
+      beliefsusan.push("I have identified the lost robot");
+    }
 
   }
 };
@@ -153,7 +167,7 @@ $('#generatemodel').on('click',function() {
   generateModel(belieflost,'agent1');
   generateModel(beliefnormal,'agent2');
   generateModel(beliefsusan,'agent3');
-  
+
   //Generate accompanying Kripke model
   generateKripke (generalknowledge);
 });
