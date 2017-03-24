@@ -15,10 +15,10 @@ danger2 = [];
 // Given the current knowledge, determine the implications
 function checkImplications(array, danger1, danger2) {
   var changed = 1;
-
+  
   while(changed == 1) {
     changed = 0;
-
+    
     //Normal Robot
     if(array.includes("gr") && danger1.includes("gr") && !beliefnormal.includes("dr")) {
       beliefnormal.push("dr")
@@ -51,8 +51,8 @@ function checkImplications(array, danger1, danger2) {
       belieflost.push("dr")
       changed = 1;
     }
-    if(array.includes("ir") && danger1.includes("ir") && !beliefnormal.includes("dr")) {
-      beliefnormal.push("dr")
+    if(array.includes("ir") && danger2.includes("ir") && !belieflost.includes("dr")) {
+      belieflost.push("dr")
       changed = 1;
     }
     if(array.includes("el") && danger2.includes("el") &&  !belieflost.includes("dr")) {
@@ -187,11 +187,44 @@ function retrieveDanger(danger, agent) {
     danger = uniquedanger;
 }
 
+function evaluateScenario(danger, lost){
+    
+  var e = document.getElementById("scenario");
+  var selected = e.options[e.selectedIndex].value;
+  
+  if (selected == 'difRad'){
+      if(lost == 0){
+          if(danger.includes("ir") && !danger.includes("gr")){
+              danger.push("gr");
+          }
+          if(!danger.includes("ir") && danger.includes("gr")){
+              danger.push("ir");
+          }
+      }
+  }
+  
+  if (selected == 'eleMag'){
+      if(lost){
+        if(danger.includes("ma") && !danger.includes("el")){
+            danger.push("el");
+        }
+      }
+  }
+  
+  if (selected == 'safe'){
+      if(lost){
+        danger = [];
+      }
+  }
+}
+  
 $('#generatemodel').on('click',function() {
   // Remove all the beliefs
   beliefsusan = [];
   beliefnormal = [];
   belieflost = [];
+  danger1 = [];
+  danger2 = [];
 
   // Check what is set to be true by the user
   if($('#gr-true').is(':checked')) {
@@ -253,9 +286,14 @@ $('#generatemodel').on('click',function() {
   retrieveDanger(danger1, 1);
   retrieveDanger(danger2, 2);
   
+  evaluateScenario(danger1, 0);
+  evaluateScenario(danger2, 1);
+  
   if($('#comm-true').is(':checked')) {
     danger1 = danger1.concat(danger2);
     danger2 = danger1;
+    evaluateScenario(danger1, 1);
+    evaluateScenario(danger2, 1);
   }
   // Check implications of the given knowledge
   checkImplications(generalknowledge, danger1, danger2);
