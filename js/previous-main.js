@@ -9,34 +9,24 @@ generalknowledge = [];
 beliefsusan = [];
 beliefnormal = [];
 belieflost = [];
-danger1 = [];
-danger2 = [];
 
 // Given the current knowledge, determine the implications
-function checkImplications(array, danger1, danger2) {
+function checkImplications(array) {
   var changed = 1;
 
   while(changed == 1) {
     changed = 0;
 
     //Normal Robot
-    if(array.includes("gr") && danger1.includes("gr") && !beliefnormal.includes("dr")) {
+    if(array.includes("dr") && !beliefnormal.includes("dr")) {
+      beliefnormal.push("dr");
+    }
+
+    if(array.includes("gr") && !beliefnormal.includes("dr")) {
       beliefnormal.push("dr")
       changed = 1;
     }
-    if(array.includes("ir") && danger1.includes("ir") && !beliefnormal.includes("dr")) {
-      beliefnormal.push("dr")
-      changed = 1;
-    }
-    if(array.includes("el") && danger1.includes("el") && !beliefnormal.includes("dr")) {
-      beliefnormal.push("dr")
-      changed = 1;
-    }
-    if(array.includes("ox") && danger1.includes("ox") && !beliefnormal.includes("dr")) {
-      beliefnormal.push("dr")
-      changed = 1;
-    }
-    if(array.includes("ma") && danger1.includes("ma") && !beliefnormal.includes("dr")) {
+    if(array.includes("ir") && !beliefnormal.includes("dr")) {
       beliefnormal.push("dr")
       changed = 1;
     }
@@ -44,26 +34,12 @@ function checkImplications(array, danger1, danger2) {
       beliefnormal.push("na")
       changed = 1;
     }
-    
 
     //Lost Robot
-    if(array.includes("gr") && danger2.includes("gr") &&  !belieflost.includes("dr")) {
-      belieflost.push("dr")
-      changed = 1;
+    if(array.includes("dr") && !belieflost.includes("dr")) {
+      belieflost.push("dr");
     }
-    if(array.includes("ir") && danger1.includes("ir") && !beliefnormal.includes("dr")) {
-      beliefnormal.push("dr")
-      changed = 1;
-    }
-    if(array.includes("el") && danger2.includes("el") &&  !belieflost.includes("dr")) {
-      belieflost.push("dr")
-      changed = 1;
-    }
-    if(array.includes("ox") && danger2.includes("ox") &&  !belieflost.includes("dr")) {
-      belieflost.push("dr")
-      changed = 1;
-    }
-    if(array.includes("ma") && danger2.includes("ma") &&  !belieflost.includes("dr")) {
+    if(array.includes("gr") && !belieflost.includes("dr")) {
       belieflost.push("dr")
       changed = 1;
     }
@@ -83,9 +59,6 @@ function checkImplications(array, danger1, danger2) {
 
     //Susan
     if(belieflost.includes("la") && !beliefnormal.includes("na") && !beliefsusan.includes("I have identified the lost robot")) {
-      beliefsusan.push("I have identified the lost robot");
-    }
-    if(!belieflost.includes("la") && beliefnormal.includes("na") && !beliefsusan.includes("I have identified the lost robot")) {
       beliefsusan.push("I have identified the lost robot");
     }
 
@@ -139,54 +112,6 @@ function generateKripke(knowledge) {
     }
 };
 
-function retrieveDanger(danger, agent) {
-    if($('#'+agent+'gr-danger').is(':checked')) {
-        danger.push("gr");
-    } else {
-        var index = danger.indexOf("gr");
-        if(index > -1 ) {
-            danger.splice(index,1);
-        }
-    }
-    if($('#'+agent+'ir-danger').is(':checked')) {
-        danger.push("ir");
-    } else {
-        var index = danger.indexOf("ir");
-        if(index > -1 ) {
-            danger.splice(index,1);
-        }
-    }
-    if($('#'+agent+'el-danger').is(':checked')) {
-        danger.push("el");
-    } else {
-        var index = danger.indexOf("el");
-        if(index > -1 ) {
-            danger.splice(index,1);
-        }
-    }
-    if($('#'+agent+'ox-danger').is(':checked')) {
-        danger.push("ox");
-    } else {
-        var index = danger.indexOf("ox");
-        if(index > -1 ) {
-            danger.splice(index,1);
-        }
-    }
-    if($('#'+agent+'ma-danger').is(':checked')) {
-        danger.push("ma");
-    } else {
-        var index = danger.indexOf("ma");
-        if(index > -1 ) {
-            danger.splice(index,1);
-        }
-    }
-    var uniquedanger = []
-    $.each(danger, function(i, el){
-        if($.inArray(el, uniquedanger) === -1) uniquedanger.push(el);
-    });
-    danger = uniquedanger;
-}
-
 $('#generatemodel').on('click',function() {
   // Remove all the beliefs
   beliefsusan = [];
@@ -210,26 +135,10 @@ $('#generatemodel').on('click',function() {
       generalknowledge.splice(index,1);
     }
   }
-  if($('#el-true').is(':checked')) {
-    generalknowledge.push("el");
+  if($('#dr-true').is(':checked')) {
+    generalknowledge.push("dr");
   } else {
-    var index = generalknowledge.indexOf("el");
-    if(index > -1 ) {
-      generalknowledge.splice(index,1);
-    }
-  }
-  if($('#ox-true').is(':checked')) {
-    generalknowledge.push("ox");
-  } else {
-    var index = generalknowledge.indexOf("ox");
-    if(index > -1 ) {
-      generalknowledge.splice(index,1);
-    }
-  }
-  if($('#ma-true').is(':checked')) {
-    generalknowledge.push("ma");
-  } else {
-    var index = generalknowledge.indexOf("ma");
+    var index = generalknowledge.indexOf("dr");
     if(index > -1 ) {
       generalknowledge.splice(index,1);
     }
@@ -242,23 +151,16 @@ $('#generatemodel').on('click',function() {
       generalknowledge.splice(index,1);
     }
   }
-  
+
   // Remove all duplicates from the array
   var uniquegeneralknowledge = []
   $.each(generalknowledge, function(i, el){
     if($.inArray(el, uniquegeneralknowledge) === -1) uniquegeneralknowledge.push(el);
   });
   generalknowledge = uniquegeneralknowledge;
-  
-  retrieveDanger(danger1, 1);
-  retrieveDanger(danger2, 2);
-  
-  if($('#comm-true').is(':checked')) {
-    danger1 = danger1.concat(danger2);
-    danger2 = danger1;
-  }
+
   // Check implications of the given knowledge
-  checkImplications(generalknowledge, danger1, danger2);
+  checkImplications(generalknowledge);
 
   //Generate the models based on the current knowledge
   generateModel(generalknowledge,'generalknowledge');
