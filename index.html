@@ -110,7 +110,7 @@
         <li> The second experiment Susan comes up with is very similar to the first one, the only difference is that a beam of gamma radiation can now be found between the robots and the human. This corresponds with switching at least one of the $Dr$ and $Gr$ switches to true. Because the First Law (save humans) is more powerful than the Third (save yourself), the normal robots should leap to save the person, even if it means their death. The lost robot however, lacks the "save humans" command, so it should be ruled by the Third Law and stay seated. Nevertheless, all robots now do nothing since one of the robots has pointed out that they couldn't save the human and if they stayed seated, they might save a human sometime in the future. 
         <li> After this, Susan runs the third experiment as explained in the Problem outline. This experiment entails switching the $Hd$ and $Ir$ switches to true, leading to Susan finding out which robot is the little lost robot. 
         
-        <div class="row">
+        <div class="row" id="robots">
             <div class="col-xs-6 col-sm-6 col-md-12">
                 <form class="form">
                     <div class="switch-title"> Robot 1 </div>
@@ -142,6 +142,8 @@
                 </form>
             </div>
         </div>
+        
+        <button id="generaterobot">Generate new robot</button>
         
         <form class="form">
             <select id="scenario">
@@ -239,7 +241,7 @@
         </div>
 
         <div class="informationcontainer">
-          <div class="row">
+          <div class="row" id="info">
             <div class="col-xs-6 col-sm-6 col-md-3">
               General<br>
               <img src="general.png" width="200" height="200"/>
@@ -251,7 +253,7 @@
               <div class="agent" id="agent1"></div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-3">
-              Normal Robots<br>
+              Normal Robot<br>
               <img src="otherRobots.png" width="200" height="200"/>
               <div class="agent" id="agent2"></div>
             </div>
