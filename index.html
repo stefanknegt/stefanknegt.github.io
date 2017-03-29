@@ -111,7 +111,7 @@
         <li> After this, Susan runs the third experiment as explained in the Problem outline. This experiment entails switching the $Hd$ and $Ir$ switches to true, leading to Susan finding out which robot is the little lost robot. 
         
         <div class="row" id="robots">
-            <div class="col-xs-6 col-sm-6 col-md-12">
+            <div class="col-xs-6 col-sm-6 col-md-12" id="robot1">
                 <form class="form">
                     <div class="switch-title"> Robot 1 </div>
                     <input type="checkbox" id="1ir-danger">
@@ -120,13 +120,9 @@
                     <label for="ir-danger">Gamma radiation</label>
                     <input type="checkbox" id="1el-danger">
                     <label for="ir-danger">Electricity</label>
-                    <input type="checkbox" id="1ox-danger">
-                    <label for="ir-danger">Oxygen</label>
-                    <input type="checkbox" id="1ma-danger">
-                    <label for="ir-danger">Magnetic field</label>
                 </form>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-12">
+            <div class="col-xs-6 col-sm-6 col-md-12" id="robot2">
                 <form class="form">
                     <div class="switch-title"> Robot 2 </div>
                     <input type="checkbox" id="2ir-danger">
@@ -135,15 +131,17 @@
                     <label for="ir-danger">Gamma radiation</label>
                     <input type="checkbox" id="2el-danger">
                     <label for="ir-danger">Electricity</label>
-                    <input type="checkbox" id="2ox-danger">
-                    <label for="ir-danger">Oxygen</label>
-                    <input type="checkbox" id="2ma-danger">
-                    <label for="ir-danger">Magnetic field</label>
                 </form>
             </div>
         </div>
         
-        <button id="generaterobot">Generate new robot</button>
+        <div>
+            <div id="generaterobot">
+                <button id="generaterobotbutton" onclick="generateRobot()">Generate new robot</button>
+            </div>
+            <div id="removerobot">
+            </div>
+        </div>
         
         <form class="form">
             <select id="scenario">
@@ -202,30 +200,6 @@
               </div>
             </form>
           </div>
-          
-          <div class="col-xs-6 col-sm-6 col-md-3">
-            <form class="form">
-              <div class="switch-field">
-                <div class="switch-title">Oxygen</div>
-                <input type="radio" id="ox-false" name="switch_2" value="false" checked/>
-                <label for="ox-false">False</label>
-                <input type="radio" id="ox-true" name="switch_2" value="true" />
-                <label for="ox-true">True</label>
-              </div>
-            </form>
-          </div>
-          
-          <div class="col-xs-6 col-sm-6 col-md-3">
-            <form class="form">
-              <div class="switch-field">
-                <div class="switch-title">Magnetic Field</div>
-                <input type="radio" id="ma-false" name="switch_2" value="false" checked/>
-                <label for="ma-false">False</label>
-                <input type="radio" id="ma-true" name="switch_2" value="true" />
-                <label for="ma-true">True</label>
-              </div>
-            </form>
-          </div>
 
           <div class="col-xs-6 col-sm-6 col-md-3">
             <form class="form">
@@ -260,7 +234,7 @@
             <div class="col-xs-6 col-sm-6 col-md-3">
               Susan<br>
               <img src="DrCalvin.png" width="200" height="200"/>
-              <div class="agent" id="agent3"></div>
+              <div class="agent" id="susan"></div>
             </div>
           </div>
           <div class="generatemodelbutton">

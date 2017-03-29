@@ -14,11 +14,9 @@ danger = [[]];
 
 count = 2;
 max = 5;
+min = 2;
 
-limit = 5;
-count = 2;
-
-$('#generaterobot').on('click',function() {
+function generateRobot(){
     if (count < max)
     {
         count++;
@@ -38,6 +36,7 @@ $('#generaterobot').on('click',function() {
         newDiv2 = document.createElement('div');
         newForm.className = "form";
         newDiv1.className ="col-xs-6 col-sm-6 col-md-12";
+        newDiv1.id ="robot" + count;
         newDiv2.className ="switch-title";
         newDiv2.innerHTML = 'Robot ' + (count);
         newForm.appendChild(newDiv2);
@@ -72,26 +71,6 @@ $('#generaterobot').on('click',function() {
         newForm.appendChild(newInput);
         newForm.appendChild(newLabel);
 
-        newInput = document.createElement('input');
-        newInput.type = 'checkbox';
-        newInput.id = count + 'ox-danger';
-        newLabel = document.createElement('label');
-        newLabel.for = 'ox-danger';
-        newLabel.appendChild(document.createTextNode("Oxygen"));
-
-        newForm.appendChild(newInput);
-        newForm.appendChild(newLabel);
-
-        newInput = document.createElement('input');
-        newInput.type = 'checkbox';
-        newInput.id = count + 'ma-danger';
-        newLabel = document.createElement('label');
-        newLabel.for = 'ma-danger';
-        newLabel.appendChild(document.createTextNode("Magnetic field"));
-
-        newForm.appendChild(newInput);
-        newForm.appendChild(newLabel);
-
         newDiv1.appendChild(newForm);
         document.getElementById("robots").appendChild(newDiv1);
 
@@ -100,8 +79,10 @@ $('#generaterobot').on('click',function() {
         newDiv4 = document.createElement('div');
         newImg = document.createElement('img');
 
-        newDiv3.className = "col-xs-6 col-sm-6 col-md-3"
-        newDiv4.className = "agent" + count;
+        newDiv3.className = "col-xs-6 col-sm-6 col-md-3";
+        newDiv3.id = "image"+count;
+        newDiv4.className = "agent";
+        newDiv4.id = "agent" + count;
 
         newDiv3.innerHTML = "Normal Robot";
 
@@ -114,7 +95,37 @@ $('#generaterobot').on('click',function() {
 
         document.getElementById("info").appendChild(newDiv3);
     }
-});
+
+    if(count > min && !document.getElementById("removerobotbutton")){
+        var removeButton = document.createElement("button");
+        removeButton.id = "removerobotbutton";
+        removeButton.onclick = removeRobot;
+        removeButton.innerHTML = "Remove robot";
+        document.getElementById("removerobot").appendChild(removeButton);
+    }
+    
+    if(count == max){
+        document.getElementById("generaterobot").removeChild(document.getElementById("generaterobotbutton"));
+    }
+}
+
+function removeRobot(){
+    if(count > min){
+        document.getElementById("robots").removeChild(document.getElementById("robot" + count));
+        document.getElementById("info").removeChild(document.getElementById("image"+count));
+        count--;
+    }
+    if(!document.getElementById("generaterobotbutton")){
+        var generateButton = document.createElement("button");
+        generateButton.id = "generaterobotbutton";
+        generateButton.onclick = generateRobot;
+        generateButton.innerHTML = "Generate new robot";
+        document.getElementById("generaterobot").appendChild(generateButton);
+    }
+    if(count == min){
+        document.getElementById("removerobot").removeChild(document.getElementById("removerobotbutton"));
+    }
+}
 
 //Determine if any of the elements of array1 occurs in array2
 function checkOverlap(array1, array2){
@@ -197,14 +208,29 @@ function checkImplications(array, danger, dangerKnown) {
     }
 
     //Susan
-    console.log(dangerKnown);
     if(array.includes("hd") && changed == 0){
-        if(((checkOverlap(array, dangerKnown[0]) && beliefnormal.includes("na")) || (checkOverlap(array, dangerKnown[1]) && belieflost.includes("na"))) && !beliefsusan.includes("I have identified the lost robot")){
-          beliefsusan.push("I have identified the lost robot");
-        }
-        if(((!checkOverlap(array, dangerKnown[0]) && !beliefnormal.includes("na")) || (!checkOverlap(array, dangerKnown[1]) && !belieflost.includes("na"))) && !beliefsusan.includes("I have identified the lost robot")){
-          beliefsusan.push("I have identified the lost robot");
-        }
+        for(var i = 0; i < count; i++){
+            if(i == 0){
+                //Check if a robot acts even though, according to the general knowledge and what they were told, the situation is dangerous for robots
+                if(checkOverlap(array, dangerKnown[i]) && belieflost.includes("na") && !beliefsusan.includes("I have identified the lost robot")){
+                    beliefsusan.push("I have identified the lost robot");
+                }
+                //Check if a robot does not act even though, according to the general knowledge and what they were told, the situation is not dangerous for robots but a human is in danger
+                if(!checkOverlap(array, dangerKnown[i]) && !belieflost.includes("na") && !array.includes("hd") && !beliefsusan.includes("I have identified the lost robot")){
+                    beliefsusan.push("I have identified the lost robot");
+                }
+            } else{
+                //Check if a robot acts even though, according to the general knowledge and what they were told, the situation is dangerous for robots
+                if(checkOverlap(array, dangerKnown[i]) && beliefnormal[i-1].includes("na") && !beliefsusan.includes("I have identified the lost robot")){
+                    beliefsusan.push("I have identified the lost robot");
+                }
+                //Check if a robot does not act even though, according to the general knowledge and what they were told, the situation is not dangerous for robots but a human is in danger
+                if(!checkOverlap(array, dangerKnown[i]) && !beliefnormal[i-1].includes("na") && !array.includes("hd") && !beliefsusan.includes("I have identified the lost robot")){
+                    beliefsusan.push("I have identified the lost robot");
+                }
+            }
+                
+        }
     }
   }
 };
@@ -338,15 +364,13 @@ function evaluateScenario(danger, lost){
 $('#generatemodel').on('click',function() {
   // Remove all the beliefs
   beliefsusan = [];
-  beliefnormal = [[]];
+  beliefnormal = new Array();
   belieflost = [];
   dangerKnown = [];
   danger = [[]];
-  /*danger1 = [];
-  danger2 = [];
-  danger3 = [];
-  danger4 = [];
-  danger5 = [];*/
+  for(var i = 0; i < (count-1); i++){
+      beliefnormal.push([]);
+  }
 
   // Check what is set to be true by the user
   if($('#gr-true').is(':checked')) {
@@ -409,14 +433,21 @@ $('#generatemodel').on('click',function() {
   for(var i = 0; i < count; i++){
     danger[i] = [];
     retrieveDanger(danger[i], i+1);
-    // Susan only has access to the dangerKnown array and the generalKnowledge array to make her decisions
-    dangerKnown[i] = danger[i].slice();
   }
 
+  dangerKnown[0] = danger[0].slice();
+  
   // Let robots make inferences from what they know to be dangerous, if there are more potential dangers
-  evaluateScenario(danger[0], 1);
-  for(var i = 1; i < count; i++){
-    evaluateScenario(danger[i], 0);
+  // Also allow Susan to make inferences of what each robot knows to be dangerous, assuming they are all normal robots
+  for(var i = 0; i < count; i++){
+    if(i == 0){
+        evaluateScenario(danger[i], 1);
+        evaluateScenario(dangerKnown[i], 0);
+    } else{
+        evaluateScenario(danger[i], 0);
+        dangerKnown[i] = danger[i].slice();
+    }
+    console.log(i + danger[i]);
   }
 
   // Let robots share their rules and what they know to be dangerous if communication is checked
@@ -440,10 +471,12 @@ $('#generatemodel').on('click',function() {
   //Generate the models based on the current knowledge
   generateModel(generalknowledge,'generalknowledge');
   generateModel(belieflost,'agent1');
-  for (var i = 0; i < (count-1); i++){
+  
+  for (var i = 0; i < (count-1); i++){
     generateModel(beliefnormal[i],'agent'+(i+2));
   }
-  generateModel(beliefsusan,'agent3');
+
+  generateModel(beliefsusan,'susan');
 
   //Generate accompanying Kripke model
   generateKripke (generalknowledge);
