@@ -11,6 +11,7 @@ body > .container {
   margin-top: 10px;
   border: 2px solid #eee;
   text-overflow: hidden;
+  text-align: left;
 }
 
 .generatemodelbutton {
@@ -49,14 +50,22 @@ ol.robotrules {
   margin-bottom: 10px;
 }
 
-#switch {
-  margin: 0 auto;
+@media only screen and (min-width: 1000px) {
+  #switch {
+    width: 20%;
+    margin-left: 5%;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1000px) {
+  #switch {
+    width: 35%;
+    margin-left: 15%;
+  }
 }
 
 .switch-field {
   font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
-  padding: 10px;
-  padding-left: 40px;
 	overflow: hidden;
 }
 
