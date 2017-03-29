@@ -20,14 +20,17 @@ function checkImplications(array) {
     //Normal Robot
     if(array.includes("dr") && !beliefnormal.includes("dr")) {
       beliefnormal.push("dr");
+      changed = 1;
     }
 
     if(array.includes("gr") && !beliefnormal.includes("dr")) {
       beliefnormal.push("dr")
+      beliefnormal.push("gr");
       changed = 1;
     }
     if(array.includes("ir") && !beliefnormal.includes("dr")) {
       beliefnormal.push("dr")
+      beliefnormal.push("ir");
       changed = 1;
     }
     if(array.includes("hd") && !beliefnormal.includes("dr") && !array.includes("dr") && !beliefnormal.includes("na") ) {
@@ -38,11 +41,19 @@ function checkImplications(array) {
     //Lost Robot
     if(array.includes("dr") && !belieflost.includes("dr")) {
       belieflost.push("dr");
-    }
-    if(array.includes("gr") && !belieflost.includes("dr")) {
-      belieflost.push("dr")
       changed = 1;
     }
+    if(array.includes("gr") && !belieflost.includes("dr")) {
+      belieflost.push("dr");
+      belieflost.push("gr");
+      changed = 1;
+    }
+
+    if(array.includes("ir") && !belieflost.includes("ir")) {
+      belieflost.push("ir");
+      changed = 1;
+    }
+
     if(array.includes("hd") && !belieflost.includes("dr") && !belieflost.includes("na")) {
       belieflost.push("na");
       changed = 1;
@@ -58,8 +69,9 @@ function checkImplications(array) {
     }
 
     //Susan
-    if(belieflost.includes("la") && !beliefnormal.includes("na") && !beliefsusan.includes("I have identified the lost robot")) {
-      beliefsusan.push("I have identified the lost robot");
+    if(belieflost.includes("la") && !beliefnormal.includes("na") && !beliefsusan.includes("ID")) {
+      beliefsusan.push("ID");
+      changed = 1;
     }
 
   }
@@ -68,10 +80,40 @@ function checkImplications(array) {
 // Print all the formulas for the agents and the general knowledge
 function generateModel(array,agent) {
   var output = [];
-  for (var i = 0; i < array.length; i++) {
-    output.push('<span>' + array[i] + '</span>');
+  if(agent != 'generalknowledge') {
+    for (var i = 0; i < array.length; i++) {
+
+      if(array[i] == "gr" && array.includes("dr")) {
+        output.push('<span>' + 'I believe that gamma radiation is present and that this is dangerous.' + '</span><br>');
+      }
+
+      if(array[i] == "ir" && array.includes("dr")) {
+        output.push('<span>' + 'I believe that infrared radiation is present and that this is dangerous.' + '</span><br>');
+      }
+
+      if(array[i] == "ir" && !array.includes("dr")) {
+        output.push('<span>' + 'I believe that infrared radiation is present, but this is not dangerous.' + '</span><br>');
+      }
+
+      if(array[i] == "ID") {
+        output.push('<span>' + 'I have identified the lost robot.' + '</span>');
+        alert("Well done, Susan has identified the lost robot.")
+      }
+    }
+    $('#'+agent).html(output.join(" "));
   }
-  $('#'+agent).html(output.join(" "));
+  if(agent == 'generalknowledge') {
+    if(array.includes("ir")) {
+      output.push('<span>' + 'There is infrared radiation present' + '</span><br>');
+    }
+    if(array.includes("gr")) {
+      output.push('<span>' + 'There is gamma radiation present' + '</span><br>');
+    }
+    if(array.includes("hd")) {
+      output.push('<span>' + 'There is a human in danger.' + '</span><br>');
+    }
+    $('#'+agent).html(output.join(" "));
+  }
 };
 
 // Change the Kripke model

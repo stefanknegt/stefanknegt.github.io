@@ -3,39 +3,60 @@ body > .container {
 }
 
 .agent {
-  background-color: #e7e7e7;
-  height: 100px;
+  background-color: #fff;
   width: 200px;
+  min-height: 150px;
   display: inline-block;
   color: #777;
   margin-top: 10px;
+  border: 2px solid #eee;
+  text-overflow: hidden;
 }
 
 .generatemodelbutton {
-  display: block;
+  text-align: center;
+  padding: 5px;
 }
 
-button#announcement1 {
+button#generatemodel {
   text-decoration: none;
+  padding: 10px;
 }
 
 ol.robotrules {
   margin-top: 20px;
 }
 
-#introduction, #problem-outline, #simulation, #theory,#analysis,#plans{
+#introduction, #problem-outline, #simulation2, #theory,#analysis,#plans{
   padding-bottom: 9px;
   margin: 40px 0 20px;
   border-bottom: 1px solid #eee;
+}
+
+.simulation-content {
+  border: 5px solid #eee;
+  margin-top: 20px;
+  padding: 30px;
 }
 
 .informationcontainer {
   padding: 40px;
 }
 
+#knowledge {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+#switch {
+  margin: 0 auto;
+}
+
 .switch-field {
   font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
-  padding: 40px;
+  padding: 10px;
+  padding-left: 40px;
 	overflow: hidden;
 }
 
