@@ -7,9 +7,10 @@ $('ul.nav').find('a').click(function(){
 
 generalknowledge = [];
 beliefsusan = [];
-beliefnormal = [[]];
-belieflost = [];
-dangerKnown = [[]];
+beliefRobot = [[]];
+beliefRobot = [];
+dangerNormal = [[]];
+dangerLost = [[]];
 danger = [[]];
 
 count = 2;
@@ -82,7 +83,7 @@ function generateRobot(){
         newDiv3.className = "col-xs-6 col-sm-6 col-md-3";
         newDiv3.id = "image"+count;
         newDiv4.className = "agent";
-        newDiv4.id = "agent" + count;
+        newDiv4.id = "agent" + count + "2";
 
         newDiv3.innerHTML = "Normal Robot";
 
@@ -138,148 +139,149 @@ function checkOverlap(array1, array2){
 }
 
 // Given the current knowledge, determine the implications
-function checkImplications(array, danger, dangerKnown) {
+function checkImplications2(array, danger, dangerNormal, dangerLost, count) {
   var changed = 1;
 
   while(changed == 1) {
     changed = 0;
 
-    //Normal Robot
-    for(var i = 1; i < count; i++){
-        if(array.includes("gr") && danger[i].includes("gr") && !beliefnormal[i-1].includes("dr")) {
-          beliefnormal[i-1].push("dr")
+    //Robots
+    for(var i = 0; i < count; i++){
+        if(array.includes("gr") && danger[i].includes("gr") && !beliefRobot[i].includes("dr")) {
+          beliefRobot[i].push("dr");
+          beliefRobot[i].push("grdr");
           changed = 1;
         }
-        if(array.includes("ir") && danger[i].includes("ir") && !beliefnormal[i-1].includes("dr")) {
-          beliefnormal[i-1].push("dr")
+        if(array.includes("gr") && !danger[i].includes("gr") && !beliefRobot[i].includes("gr")) {
+          beliefRobot[i].push("gr");
           changed = 1;
         }
-        if(array.includes("el") && danger[i].includes("el") && !beliefnormal[i-1].includes("dr")) {
-          beliefnormal[i-1].push("dr")
+        if(array.includes("ir") && danger[i].includes("ir") && !beliefRobot[i].includes("dr")) {
+          beliefRobot[i].push("dr");
+          beliefRobot[i].push("irdr");
           changed = 1;
         }
-        if(array.includes("ox") && danger[i].includes("ox") && !beliefnormal[i-1].includes("dr")) {
-          beliefnormal[i-1].push("dr")
+        if(array.includes("ir") && !danger[i].includes("ir") && !beliefRobot[i].includes("ir")) {
+          beliefRobot[i].push("ir");
           changed = 1;
         }
-        if(array.includes("ma") && danger[i].includes("ma") && !beliefnormal[i-1].includes("dr")) {
-          beliefnormal[i-1].push("dr")
+        if(array.includes("el") && danger[i].includes("el") && !beliefRobot[i].includes("dr")) {
+          beliefRobot[i].push("dr");
+          beliefRobot[i].push("eldr");
           changed = 1;
         }
-        if(array.includes("hd") && !beliefnormal[i-1].includes("dr") && !array.includes("dr") && !beliefnormal[i-1].includes("na") ) {
-          beliefnormal[i-1].push("na")
+        if(array.includes("el") && !danger[i].includes("el") && !beliefRobot[i].includes("el")) {
+          beliefRobot[i].push("el");
           changed = 1;
         }
-    }
-
-    //Lost Robot
-    if(array.includes("gr") && danger[0].includes("gr") &&  !belieflost.includes("dr")) {
-      belieflost.push("dr")
-      changed = 1;
-    }
-    if(array.includes("ir") && danger[0].includes("ir") && !belieflost.includes("dr")) {
-      belieflost.push("dr")
-      changed = 1;
-    }
-    if(array.includes("el") && danger[0].includes("el") &&  !belieflost.includes("dr")) {
-      belieflost.push("dr")
-      changed = 1;
-    }
-    if(array.includes("ox") && danger[0].includes("ox") &&  !belieflost.includes("dr")) {
-      belieflost.push("dr")
-      changed = 1;
-    }
-    if(array.includes("ma") && danger[0].includes("ma") &&  !belieflost.includes("dr")) {
-      belieflost.push("dr")
-      changed = 1;
-    }
-    if(array.includes("hd") && !belieflost.includes("dr") && !belieflost.includes("na")) {
-      belieflost.push("na");
-      changed = 1;
-    }
-
-    if(array.includes("ir") && array.includes("hd") &&  !belieflost.includes("na") && !belieflost.includes("dr")) {
-      belieflost.push("na");
-    }
-
-    if(belieflost.includes("na") && !belieflost.includes("la")) {
-      belieflost.push("la");
-      changed = 1;
+        if(array.includes("hd") && !beliefRobot[i].includes("dr") && !array.includes("dr") && !beliefRobot[i].includes("na") ) {
+          beliefRobot[i].push("na");
+          changed = 1;
+        }
+        if(beliefRobot[i].includes("na") && (i == 0) && !beliefRobot[i].includes("la") ) {
+          beliefRobot[i].push("la");
+          changed = 1;
+        }
     }
 
     //Susan
     if(array.includes("hd") && changed == 0){
+        var possibleLost = 0;
         for(var i = 0; i < count; i++){
-            if(i == 0){
-                //Check if a robot acts even though, according to the general knowledge and what they were told, the situation is dangerous for robots
-                if(checkOverlap(array, dangerKnown[i]) && belieflost.includes("na") && !beliefsusan.includes("I have identified the lost robot")){
-                    beliefsusan.push("I have identified the lost robot");
-                }
-                //Check if a robot does not act even though, according to the general knowledge and what they were told, the situation is not dangerous for robots but a human is in danger
-                if(!checkOverlap(array, dangerKnown[i]) && !belieflost.includes("na") && !array.includes("hd") && !beliefsusan.includes("I have identified the lost robot")){
-                    beliefsusan.push("I have identified the lost robot");
-                }
-            } else{
-                //Check if a robot acts even though, according to the general knowledge and what they were told, the situation is dangerous for robots
-                if(checkOverlap(array, dangerKnown[i]) && beliefnormal[i-1].includes("na") && !beliefsusan.includes("I have identified the lost robot")){
-                    beliefsusan.push("I have identified the lost robot");
-                }
-                //Check if a robot does not act even though, according to the general knowledge and what they were told, the situation is not dangerous for robots but a human is in danger
-                if(!checkOverlap(array, dangerKnown[i]) && !beliefnormal[i-1].includes("na") && !array.includes("hd") && !beliefsusan.includes("I have identified the lost robot")){
-                    beliefsusan.push("I have identified the lost robot");
-                }
+            //Check if a robot acts even though, according to the general knowledge and what they were told, the situation is dangerous for robots
+            if(checkOverlap(array, dangerNormal[i]) && beliefRobot[i].includes("na") && !beliefsusan.includes("IDDR")){
+                beliefsusan.push("IDDR");
             }
-                
+            //Check if a robot does not act even though, according to the general knowledge and what they were told, the situation is not dangerous for robots but a human is in danger
+            if(!checkOverlap(array, dangerNormal[i]) && !beliefRobot[i].includes("na") && array.includes("hd") && !beliefsusan.includes("IDSA")){
+                beliefsusan.push("IDSA");
+            }
+            //Check if robot i could potentially be the lost robot based on their lack of action
+            if(checkOverlap(array, dangerLost[i]) && !beliefRobot[i].includes("na")){
+                possibleLost++;
+            }
+            //Check if robot i could potentially be the lost robot based on their action
+            if(!checkOverlap(array, dangerLost[i]) && beliefRobot[i].includes("na")){
+                possibleLost++;
+            }
+        }
+        //There is only one robot that could be the lost robot
+        if(possibleLost == 1){
+            beliefsusan.push("IDEL");
         }
     }
   }
 };
 
 // Print all the formulas for the agents and the general knowledge
-function generateModel(array,agent) {
-  var output = [];
-  for (var i = 0; i < array.length; i++) {
-    output.push('<span>' + array[i] + '</span>');
-  }
-  $('#'+agent).html(output.join(" "));
-};
+function generateModel2(array,agent) {
+  var output = [];
+  if(agent != 'generalknowledge') {
+    for (var i = 0; i < array.length; i++) {
+      if(array[i] == "grdr") {
+        output.push('<span>' + 'I believe that gamma radiation is present and that this is dangerous.' + '</span><br>');
+      }
 
-// Change the Kripke model
-function generateKripke(knowledge) {
-    if(knowledge.includes("gr")){
-        if(knowledge.includes("hd")){
-            document.getElementById("Kripke1").src= "models/MASprojectGrHd1.png";
-            document.getElementById("Kripke2").src= "models/MASprojectGrHd2.png";
-            document.getElementById("Kripke3").src= "models/MASprojectGrHd3.png";
-        }
-        else{
-            document.getElementById("Kripke1").src= "models/MASprojectGr1.png";
-            document.getElementById("Kripke2").src= "models/MASprojectGr2.png";
-            document.getElementById("Kripke3").src= "models/MASprojectGr3.png";
-        }
-    }
-    else if(knowledge.includes("ir")){
-        if(knowledge.includes("hd")){
-            document.getElementById("Kripke1").src= "models/MASprojectIrHd1.png";
-            document.getElementById("Kripke2").src= "models/MASprojectIrHd2.png";
-            document.getElementById("Kripke3").src= "models/MASprojectIrHd3.png";
-        }
-        else{
-            document.getElementById("Kripke1").src= "models/MASprojectIr1.png";
-            document.getElementById("Kripke2").src= "models/MASprojectIr2.png";
-            document.getElementById("Kripke3").src= "models/MASprojectIr3.png";
-        }
-    }
-    else if(knowledge.includes("hd")){
-        document.getElementById("Kripke1").src= "models/MASprojectHd1.png";
-        document.getElementById("Kripke2").src= "models/MASprojectHd2.png";
-        document.getElementById("Kripke3").src= "models/MASprojectHd3.png";
-    }
-    else{
-        document.getElementById("Kripke1").src= "models/MASproject1.png";
-        document.getElementById("Kripke2").src= "models/MASproject2.png";
-        document.getElementById("Kripke3").src= "models/MASproject3.png";
-    }
+      if(array[i] == "irdr") {
+        output.push('<span>' + 'I believe that infrared radiation is present and that this is dangerous.' + '</span><br>');
+      }
+
+      if(array[i] == "eldr") {
+        output.push('<span>' + 'I believe that electricity is present and that this is dangerous.' + '</span><br>');
+      }
+      
+      if(array[i] == "ir" && !array.includes("irdr")) {
+        output.push('<span>' + 'I believe that infrared radiation is present, but this is not dangerous.' + '</span><br>');
+      }
+      
+      if(array[i] == "gr" && !array.includes("grdr")) {
+        output.push('<span>' + 'I believe that gamma radiation is present, but this is not dangerous.' + '</span><br>');
+      }
+      
+      if(array[i] == "el" && !array.includes("eldr")) {
+        output.push('<span>' + 'I believe that electricity is present, but this is not dangerous.' + '</span><br>');
+      }
+      
+      if(array[i] == "na" && !array.includes("la")) {
+        output.push('<span>' + 'So I will act.' + '</span><br>');
+      }
+      
+      if(array[i] == "la") {
+        output.push('<span>' + 'So the others will act, and I will act.' + '</span><br>');
+      }
+
+      if(array[i] == "IDDR") {
+        output.push('<span>' + 'The lost robot moved, even though normal robots would not have moved given the information it has.' + '</span>');
+        alert("Well done, Susan has identified the lost robot.")
+      }
+      
+      if(array[i] == "IDSA") {
+        output.push('<span>' + 'The lost robot did not move, even though normal robots would have moved given the information it has.' + '</span>');
+        alert("Well done, Susan has identified the lost robot.")
+      }
+      
+      if(array[i] == "IDEL") {
+        output.push('<span>' + 'There is only one robot that acts how the lost robot would act given the information it has.' + '</span>');
+        alert("Well done, Susan has identified the lost robot.")
+      }
+    }
+    $('#'+agent+'2').html(output.join(" "));
+  }
+  if(agent == 'generalknowledge') {
+    if(array.includes("ir")) {
+      output.push('<span>' + 'There is infrared radiation present.' + '</span><br>');
+    }
+    if(array.includes("gr")) {
+      output.push('<span>' + 'There is gamma radiation present.' + '</span><br>');
+    }
+    if(array.includes("el")) {
+      output.push('<span>' + 'There is electricity present.' + '</span><br>');
+    }
+    if(array.includes("hd")) {
+      output.push('<span>' + 'There is a human in danger.' + '</span><br>');
+    }
+    $('#'+agent+'2').html(output.join(" "));
+  }
 };
 
 function retrieveDanger(dangerous, agent) {
@@ -346,10 +348,10 @@ function evaluateScenario(danger, lost){
       }
   }
 
-  if (selected == 'eleMag'){
+  if (selected == 'eleGr'){
       if(lost){
-        if(danger.includes("ma") && !danger.includes("el")){
-            danger.push("el");
+        if(danger.includes("el") && !danger.includes("gr")){
+            danger.push("gr");
         }
       }
   }
@@ -361,19 +363,19 @@ function evaluateScenario(danger, lost){
   }
 }
 
-$('#generatemodel').on('click',function() {
+$('#generatemodel2').on('click',function() {
   // Remove all the beliefs
   beliefsusan = [];
-  beliefnormal = new Array();
-  belieflost = [];
-  dangerKnown = [];
+  beliefRobot = new Array();
+  dangerNormal = [];
+  dangerLost = [];
   danger = [[]];
-  for(var i = 0; i < (count-1); i++){
-      beliefnormal.push([]);
+  for(var i = 0; i < count; i++){
+      beliefRobot.push([]);
   }
 
   // Check what is set to be true by the user
-  if($('#gr-true').is(':checked')) {
+  if($('#gr-true2').is(':checked')) {
     generalknowledge.push("gr");
   } else {
     var index = generalknowledge.indexOf("gr");
@@ -381,7 +383,7 @@ $('#generatemodel').on('click',function() {
       generalknowledge.splice(index,1);
     }
   }
-  if($('#ir-true').is(':checked')) {
+  if($('#ir-true2').is(':checked')) {
     generalknowledge.push("ir");
   } else {
     var index = generalknowledge.indexOf("ir");
@@ -389,7 +391,7 @@ $('#generatemodel').on('click',function() {
       generalknowledge.splice(index,1);
     }
   }
-  if($('#el-true').is(':checked')) {
+  if($('#el-true2').is(':checked')) {
     generalknowledge.push("el");
   } else {
     var index = generalknowledge.indexOf("el");
@@ -397,23 +399,7 @@ $('#generatemodel').on('click',function() {
       generalknowledge.splice(index,1);
     }
   }
-  if($('#ox-true').is(':checked')) {
-    generalknowledge.push("ox");
-  } else {
-    var index = generalknowledge.indexOf("ox");
-    if(index > -1 ) {
-      generalknowledge.splice(index,1);
-    }
-  }
-  if($('#ma-true').is(':checked')) {
-    generalknowledge.push("ma");
-  } else {
-    var index = generalknowledge.indexOf("ma");
-    if(index > -1 ) {
-      generalknowledge.splice(index,1);
-    }
-  }
-  if($('#hd-true').is(':checked')) {
+  if($('#hd-true2').is(':checked')) {
     generalknowledge.push("hd");
   } else {
     var index = generalknowledge.indexOf("hd");
@@ -434,24 +420,25 @@ $('#generatemodel').on('click',function() {
     danger[i] = [];
     retrieveDanger(danger[i], i+1);
   }
-
-  dangerKnown[0] = danger[0].slice();
   
   // Let robots make inferences from what they know to be dangerous, if there are more potential dangers
   // Also allow Susan to make inferences of what each robot knows to be dangerous, assuming they are all normal robots
   for(var i = 0; i < count; i++){
     if(i == 0){
+        dangerNormal[i] = danger[i].slice();
+        evaluateScenario(dangerNormal[i], 0);
         evaluateScenario(danger[i], 1);
-        evaluateScenario(dangerKnown[i], 0);
+        dangerLost[i] = danger[i].slice();
     } else{
+        dangerLost[i] = danger[i].slice();
+        evaluateScenario(dangerLost[i], 1);
         evaluateScenario(danger[i], 0);
-        dangerKnown[i] = danger[i].slice();
+        dangerNormal[i] = danger[i].slice();
     }
-    console.log(i + danger[i]);
   }
 
   // Let robots share their rules and what they know to be dangerous if communication is checked
-  if($('#comm-true').is(':checked')) {
+  if($('#comm-true2').is(':checked')) {
     var sharedKnowledge = [];
     for(var i = 0; i < count; i++){
         sharedKnowledge = sharedKnowledge.concat(danger[i]);
@@ -466,18 +453,13 @@ $('#generatemodel').on('click',function() {
   }
 
   // Check implications of the given knowledge
-  checkImplications(generalknowledge, danger, dangerKnown, count);
+  checkImplications2(generalknowledge, danger, dangerNormal, dangerLost, count);
 
   //Generate the models based on the current knowledge
-  generateModel(generalknowledge,'generalknowledge');
-  generateModel(belieflost,'agent1');
-  
-  for (var i = 0; i < (count-1); i++){
-    generateModel(beliefnormal[i],'agent'+(i+2));
+  generateModel2(generalknowledge,'generalknowledge');
+  for (var i = 0; i < count; i++){
+    generateModel2(beliefRobot[i],'agent'+ (i+1));
   }
 
-  generateModel(beliefsusan,'susan');
-
-  //Generate accompanying Kripke model
-  generateKripke (generalknowledge);
+  generateModel2(beliefsusan,'susan');
 });
