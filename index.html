@@ -336,6 +336,37 @@
             <img src="models/MASproject3.png" width="400" height="400" id="Kripke3">
             </center>
             <center><img src="models/Legend.png" width="350" height="200"></center>
+                    
+            <div class="informationcontainer">
+                <div class="row" id="info">
+                    <div class="col-xs-6 col-sm-6 col-md-3">
+                    General<br>
+                    <img src="general.png" width="200" height="200"/>
+                    <div class="agent" id="KripkeModelGeneral"></div>
+                </div>
+                <div class="row" id="info">
+                    <div class="col-xs-6 col-sm-6 col-md-3">
+                    Normal Robots<br>
+                    <img src="otherRobots.png" width="200" height="200"/>
+                    <div class="agent" id="KripkeModelNormal"></div>
+                </div>
+                <div class="row" id="info">
+                    <div class="col-xs-6 col-sm-6 col-md-3">
+                    Lost Robot<br>
+                    <img src="NS-2.png" width="200" height="200"/>
+                    <div class="agent" id="KripkeModelLost"></div>
+                </div>
+                <div class="row" id="info">
+                    <div class="col-xs-6 col-sm-6 col-md-3">
+                    Susan<br>
+                    <img src="DrCalvin.png" width="200" height="200"/>
+                    <div class="agent" id="KripkeModelSusan"></div>
+                </div>
+            </div>
+            <div class="generatemodelbutton">
+                <button id="generateKripkeModel">Generate new Kripke model</button>
+            </div>
+            
             The main challenge when constructing the Kripke model is the large amount of worlds that could be considered. As there are 6 axioms, which could each be true or false, there are $2^6=64$ possible worlds. However,
             many of these worlds are irrelevant considering the general knowledge of the agents. For instance, in a world where gamma radiation is true, everyone believes that the radiation is dangerous to the robots, and so
             none of the robots will act. So there are only two relevant worlds where gamma radiation is true, one where a human is in danger, and one where a human is not in danger. By eliminating irrelevant worlds like so, we
@@ -375,5 +406,6 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/Simulation1.js"></script>
     <script src="js/Simulation2.js"></script>
+    <script src="js/Kripke.js"></script>
   </body>
 </html>
