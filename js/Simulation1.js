@@ -93,6 +93,14 @@ function generateModel(array,agent) {
       if(array.includes("ir") && agent == 'agent1') {
         output.push('<span>' + 'I believe that infrared radiation is present, but this is not dangerous.' + '</span><br>');
       }
+    
+      if(array.includes("la") && agent == "agent1") {
+        output.push('<span>' + 'I will try to save the human.' + '</span><br>');
+      }
+    
+      if(array.includes("na") && agent == "agent2") {
+        output.push('<span>' + 'I will try to save the human.' + '</span><br>');
+      }
 
       if(array.includes("ID")) {
         output.push('<span>' + 'I have identified the lost robot.' + '</span>');
