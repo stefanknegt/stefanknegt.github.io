@@ -24,17 +24,17 @@ function checkImplications(array) {
     }
 
     if(array.includes("gr") && !beliefnormal.includes("dr")) {
-      beliefnormal.push("dr")
+      beliefnormal.push("dr");
       beliefnormal.push("gr");
       changed = 1;
     }
-    if(array.includes("ir") && !beliefnormal.includes("dr")) {
-      beliefnormal.push("dr")
+    if(array.includes("ir") && !beliefnormal.includes("ir")) {
+      beliefnormal.push("dr");
       beliefnormal.push("ir");
       changed = 1;
     }
     if(array.includes("hd") && !beliefnormal.includes("dr") && !array.includes("dr") && !beliefnormal.includes("na") ) {
-      beliefnormal.push("na")
+      beliefnormal.push("na");
       changed = 1;
     }
 
@@ -61,6 +61,7 @@ function checkImplications(array) {
 
     if(array.includes("ir") && array.includes("hd") &&  !belieflost.includes("na") && !belieflost.includes("dr")) {
       belieflost.push("na");
+      changed = 1;
     }
 
     if(belieflost.includes("na") && !belieflost.includes("la")) {
@@ -81,26 +82,32 @@ function checkImplications(array) {
 function generateModel(array,agent) {
   var output = [];
   if(agent != 'generalknowledge') {
-    for (var i = 0; i < array.length; i++) {
-
-      if(array[i] == "gr" && array.includes("dr")) {
+      if(array.includes("gr") && array.includes("dr")) {
         output.push('<span>' + 'I believe that gamma radiation is present and that this is dangerous.' + '</span><br>');
       }
 
-      if(array[i] == "ir" && array.includes("dr")) {
+      if(array.includes("ir") && agent == 'agent2') {
         output.push('<span>' + 'I believe that infrared radiation is present and that this is dangerous.' + '</span><br>');
       }
 
-      if(array[i] == "ir" && !array.includes("dr")) {
+      if(array.includes("ir") && agent == 'agent1') {
         output.push('<span>' + 'I believe that infrared radiation is present, but this is not dangerous.' + '</span><br>');
       }
+    
+      if(array.includes("la") && agent == "agent1") {
+        output.push('<span>' + 'I will try to save the human.' + '</span><br>');
+      }
+    
+      if(array.includes("na") && agent == "agent2") {
+        output.push('<span>' + 'I will try to save the human.' + '</span><br>');
+      }
 
-      if(array[i] == "ID") {
+      if(array.includes("ID")) {
         output.push('<span>' + 'I have identified the lost robot.' + '</span>');
         alert("Well done, Susan has identified the lost robot.")
       }
-    }
-    $('#'+agent).html(output.join(" "));
+
+      $('#'+agent).html(output.join(" "));
   }
   if(agent == 'generalknowledge') {
     if(array.includes("ir")) {
