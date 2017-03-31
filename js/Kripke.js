@@ -1,3 +1,15 @@
+ var possibilities = new Array();
+ var normalPos = new Array();
+ var lostPos = new Array();
+ var susanPos = new Array();
+ var globalPos = new Array();
+
+ var worldsNormal = new Array();
+ var worldsLost = new Array();
+ var worldsSusan = new Array();
+ 
+ var domain = new Array();
+
 function generatePossibilities(possibilities){
     var world = 0;
     for(var gr = 0; gr <= 1; gr++){
@@ -134,14 +146,6 @@ function globalPossibilities(possibilities, normal, lost, susan, total, max){
     }
 }
 
-function generateKripke(array, agent){
-    var output = [];
-    for(var i = 0; i < array.length; i++){
-        output.push('<span>' + JSON.stringify(array[i]) + '</span><br>');
-    }
-    $('#KripkeModel' + agent).html(output.join(" "));
-}
-
 function canvas_arrow(context, fromx, fromy, tox, toy){
     var headlen = 10;	// length of head in pixels
     var dx = tox-fromx;
@@ -154,18 +158,13 @@ function canvas_arrow(context, fromx, fromy, tox, toy){
     context.lineTo(tox-headlen*Math.cos(angle+Math.PI/6),toy-headlen*Math.sin(angle+Math.PI/6));
 }
 
-function drawKripke(globalPos, array, agent, color){
+function generateDomain(globalPos){
     var i = 0;
-    var domain = new Array();
     var x = 205;
     var y = 40;
     var height = 600;
     var width = 600;
     var part = globalPos.length/4;
-    var c = document.getElementById("KripkeModel" + agent);
-    var ctx = c.getContext("2d");
-    
-    ctx.clearRect(0,0,400,400)
     
     while(i < part){
         world = {'world': i, 'x': x, 'y': y};
@@ -195,10 +194,18 @@ function drawKripke(globalPos, array, agent, color){
         y -= height/globalPos.length;
         i++;
     }
+}
+    
+function drawKripke(globalPos, array, agent, color, domain){
+    var i = 0;
+    var c = document.getElementById("KripkeModel" + agent);
+    var ctx = c.getContext("2d");
+    
+    ctx.clearRect(0,0,400,400)
     
     for(i = 0; i <globalPos.length; i++){
         if(i < globalPos.length/2)  ctx.fillText("World" + (domain[i].world+1), domain[i].x, domain[i].y);
-        if(i > globalPos.length/2) ctx.fillText("World" + (domain[i].world+1), domain[i].x-40, domain[i].y);
+        if(i >= globalPos.length/2) ctx.fillText("World" + (domain[i].world+1), domain[i].x-40, domain[i].y);
         ctx.fillRect(domain[i].x - 4, domain[i].y - 4, 8, 8);
     }  
     
@@ -256,17 +263,66 @@ function drawOverview(array){
     }
 }
 
+function announcement(announced){
+    worldsNormal = new Array();
+    worldsLost = new Array();
+    worldsSusan = new Array();
+    
+    for(var i = 0; i < globalPos.length; i++){
+        if(globalPos[i][announced] == 0){
+            globalPos.splice(i, 1);
+            domain.splice(i, 1);
+            i--;
+        }
+    }
+    
+    for(var i = 0; i < globalPos.length; i++){
+        if(included(globalPos[i], normalPos)) worldsNormal.push(i);
+        if(included(globalPos[i], lostPos)) worldsLost.push(i);
+        if(included(globalPos[i], susanPos)) worldsSusan.push(i);
+    }
+    
+    drawKripke(globalPos, worldsNormal, 'Normal', 'green', domain);
+    drawKripke(globalPos, worldsLost, 'Lost', 'red', domain);
+    drawKripke(globalPos, worldsSusan, 'Susan', 'blue', domain);
+}
+
+function announceGr(){
+    announcement('gr');
+}
+
+function announceIr(){
+    announcement('ir');
+}
+
+function announceDr(){
+    announcement('dr');
+}
+
+function announceHd(){
+    announcement('hd');
+}
+
+function announceNa(){
+    announcement('na');
+}
+
+function announceLa(){
+    announcement('la');
+}
 
 $('#generateKripkeModel').on('click',function() {
-    var possibilities = new Array();
-    var normalPos = new Array();
-    var lostPos = new Array();
-    var susanPos = new Array();
-    var globalPos = new Array();
+    possibilities = new Array();
+    normalPos = new Array();
+    lostPos = new Array();
+    susanPos = new Array();
+    globalPos = new Array();
     
-    var worldsNormal = new Array();
-    var worldsLost = new Array();
-    var worldsSusan = new Array();
+    worldsNormal = new Array();
+    worldsLost = new Array();
+    worldsSusan = new Array();
+    
+    domain = new Array();
     
     possibilities.push({});
     generatePossibilities(possibilities);
@@ -281,15 +337,12 @@ $('#generateKripkeModel').on('click',function() {
         if(included(globalPos[i], lostPos)) worldsLost.push(i);
         if(included(globalPos[i], susanPos)) worldsSusan.push(i);
     }
-
-    drawKripke(globalPos, worldsNormal, 'Normal', 'green');
-    drawKripke(globalPos, worldsLost, 'Lost', 'red');
-    drawKripke(globalPos, worldsSusan, 'Susan', 'blue');
+    
+    generateDomain(globalPos);
+    
+    drawKripke(globalPos, worldsNormal, 'Normal', 'green', domain);
+    drawKripke(globalPos, worldsLost, 'Lost', 'red', domain);
+    drawKripke(globalPos, worldsSusan, 'Susan', 'blue', domain);
     
     drawOverview(globalPos);
-    
-    /*generateKripke(normalPos, 'Normal');
-    generateKripke(lostPos, 'Lost');
-    generateKripke(susanPos, 'Susan');
-    generateKripke(globalPos, 'General');*/
 });

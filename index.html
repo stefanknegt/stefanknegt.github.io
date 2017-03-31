@@ -324,12 +324,6 @@
         <p> We model theory of mind-properties for the agents with the KD45 system and added beliefs. The idea of bridging cognitive science and logic, by using dynamic epistemic logic to model theory of mind is not new (Verbrugge, 2009). Pol et al. (2016) used dynamic belief updates in a computational-level model of theory of mind. This way they formalize the aspect of theory of mind regarding the attribution of mental states. In the model they focus on epistemic states, in particular on belief. Our model is based on their approach. The most important difference is that in our model, the belief updates will not be based on sequences of actions but on public announcements that change the beliefs of the agents.
             <h3> Kripke Model </h3>
             <p> In the figures below, Kripke models are shown that display the epistemic situation corresponding to the current state of the simulation.
-            <center>
-            <img src="models/MASproject1.png" width="400" height="400" id="Kripke1">
-            <img src="models/MASproject2.png" width="400" height="400" id="Kripke2">
-            <img src="models/MASproject3.png" width="400" height="400" id="Kripke3">
-            </center>
-            <center><img src="models/Legend.png" width="350" height="200"></center>
 
             <div class="row">
                 <center>
@@ -348,6 +342,14 @@
                 </center>
                 <div class="generatemodelbutton">
                     <button id="generateKripkeModel">Generate new Kripke model</button>
+                </div>
+                <div class="row">
+                    <button id="announceGr" onclick=announceGr()>Announce Gr (gamma radiation)</button>
+                    <button id="announceIr" onclick=announceIr()>Announce Ir (infra-red)</button>
+                    <button id="announceDr" onclick=announceDr()>Announce Dr (danger for robots)</button>
+                    <button id="announceHd" onclick=announceHd()>Announce Hd (human in danger)</button>
+                    <button id="announceNa" onclick=announceNa()>Announce Na (normal robots act)</button>
+                    <button id="announceLa" onclick=announceLa()>Announce La (lost robot acts)</button>
                 </div>
             </div>
 
