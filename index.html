@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width; initial-scale = 1.0; maximum-scale=1.0; user-scalable=no" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
@@ -217,7 +217,7 @@
                     </form>
                 </div>
             </div>
-            
+
         <div id="generaterobot">
             <button id="generaterobotbutton" onclick=generateRobot()>Generate new robot</button>
         </div>
@@ -336,7 +336,7 @@
             <img src="models/MASproject3.png" width="400" height="400" id="Kripke3">
             </center>
             <center><img src="models/Legend.png" width="350" height="200"></center>
-            
+
             <div class="row">
                 <center>
                     <figure>
@@ -356,7 +356,7 @@
                     <button id="generateKripkeModel">Generate new Kripke model</button>
                 </div>
             </div>
-            
+
             The main challenge when constructing the Kripke model is the large amount of worlds that could be considered. As there are 6 axioms, which could each be true or false, there are $2^6=64$ possible worlds. However,
             many of these worlds are irrelevant considering the general knowledge of the agents. For instance, in a world where gamma radiation is true, everyone believes that the radiation is dangerous to the robots, and so
             none of the robots will act. So there are only two relevant worlds where gamma radiation is true, one where a human is in danger, and one where a human is not in danger. By eliminating irrelevant worlds like so, we
