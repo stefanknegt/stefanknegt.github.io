@@ -47,7 +47,7 @@ function generateRobot(){
         newInput.id = count + 'ir-danger';
         newLabel = document.createElement('label');
         newLabel.for = 'ir-danger';
-        newLabel.appendChild(document.createTextNode("Infra-red"));
+        newLabel.appendChild(document.createTextNode("\u00A0Infra-red\u00A0"));
 
         newForm.appendChild(newInput);
         newForm.appendChild(newLabel);
@@ -57,7 +57,7 @@ function generateRobot(){
         newInput.id = count + 'gr-danger';
         newLabel = document.createElement('label');
         newLabel.for = 'gr-danger';
-        newLabel.appendChild(document.createTextNode("Gamma radiation"));
+        newLabel.appendChild(document.createTextNode("\u00A0Gamma radiation\u00A0"));
 
         newForm.appendChild(newInput);
         newForm.appendChild(newLabel);
@@ -67,7 +67,7 @@ function generateRobot(){
         newInput.id = count + 'el-danger';
         newLabel = document.createElement('label');
         newLabel.for = 'el-danger';
-        newLabel.appendChild(document.createTextNode("Electricity"));
+        newLabel.appendChild(document.createTextNode("\u00A0Electricity "));
 
         newForm.appendChild(newInput);
         newForm.appendChild(newLabel);
@@ -104,7 +104,7 @@ function generateRobot(){
         removeButton.innerHTML = "Remove robot";
         document.getElementById("removerobot").appendChild(removeButton);
     }
-    
+
     if(count == max){
         document.getElementById("generaterobot").removeChild(document.getElementById("generaterobotbutton"));
     }
@@ -229,23 +229,23 @@ function generateModel2(array,agent) {
       if(array[i] == "eldr") {
         output.push('<span>' + 'I believe that electricity is present and that this is dangerous.' + '</span><br>');
       }
-      
+
       if(array[i] == "ir" && !array.includes("irdr")) {
         output.push('<span>' + 'I believe that infrared radiation is present, but this is not dangerous.' + '</span><br>');
       }
-      
+
       if(array[i] == "gr" && !array.includes("grdr")) {
         output.push('<span>' + 'I believe that gamma radiation is present, but this is not dangerous.' + '</span><br>');
       }
-      
+
       if(array[i] == "el" && !array.includes("eldr")) {
         output.push('<span>' + 'I believe that electricity is present, but this is not dangerous.' + '</span><br>');
       }
-      
+
       if(array[i] == "na" && !array.includes("la")) {
         output.push('<span>' + 'So I will act.' + '</span><br>');
       }
-      
+
       if(array[i] == "la") {
         output.push('<span>' + 'So the others will act, and I will act.' + '</span><br>');
       }
@@ -254,12 +254,12 @@ function generateModel2(array,agent) {
         output.push('<span>' + 'The lost robot moved, even though normal robots would not have moved given the information it has.' + '</span>');
         alert("Well done, Susan has identified the lost robot.")
       }
-      
+
       if(array[i] == "IDSA") {
         output.push('<span>' + 'The lost robot did not move, even though normal robots would have moved given the information it has.' + '</span>');
         alert("Well done, Susan has identified the lost robot.")
       }
-      
+
       if(array[i] == "IDEL") {
         output.push('<span>' + 'There is only one robot that acts how the lost robot would act given the information it has.' + '</span>');
         alert("Well done, Susan has identified the lost robot.")
@@ -420,7 +420,7 @@ $('#generatemodel2').on('click',function() {
     danger[i] = [];
     retrieveDanger(danger[i], i+1);
   }
-  
+
   // Let robots make inferences from what they know to be dangerous, if there are more potential dangers
   // Also allow Susan to make inferences of what each robot knows to be dangerous, assuming they are all normal robots
   for(var i = 0; i < count; i++){

@@ -157,22 +157,22 @@
           </div>
 
           <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-3" id="knowledge">
+            <div class="col-xs-6 col-sm-12 col-md-3" id="knowledge">
               General<br>
               <img src="general.png" width="200" height="200"/>
               <div class="agent" id="generalknowledge"></div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-3" id="knowledge">
+            <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
               Lost Robot<br>
               <img src="NS-2.png" width="200" height="200"/>
               <div class="agent" id="agent1"></div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-3" id="knowledge">
+            <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
               Normal Robot<br>
               <img src="otherRobots.png" width="200" height="200"/>
               <div class="agent" id="agent2"></div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-3" id="knowledge">
+            <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
               Susan<br>
               <img src="DrCalvin.png" width="200" height="200"/>
               <div class="agent" id="agent3"></div>
@@ -186,8 +186,10 @@
       </div>
 
       <div id="simulation2">
-        <h2>Simulation2</h2>
+        <h2>Extended Simulation</h2>
+
         <div class="simulation-content">
+          <div clas="row">
             <div id ="robots">
                 <div class="col-xs-6 col-sm-6 col-md-12">
                     <form class="form">
@@ -216,8 +218,7 @@
         <div id="generaterobot">
             <button id="generaterobotbutton" onclick=generateRobot()>Generate new robot</button>
         </div>
-        <div id="removerobot">
-        </div>
+        <div id="removerobot"></div>
 
         <form class="form">
             <select id="scenario">
@@ -228,7 +229,7 @@
         </form>
 
         <div class="row">
-          <div class="col-xs-6 col-sm-6 col-md-3">
+          <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
             <form class="form">
               <div class="switch-field">
                 <div class="switch-title">Allow communication </div>
@@ -240,8 +241,7 @@
             </form>
         </div>
 
-        <div class="row">
-          <div class="col-xs-6 col-sm-6 col-md-3">
+          <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
             <form class="form">
               <div class="switch-field">
                 <div class="switch-title">Gamma radiation </div>
@@ -253,7 +253,7 @@
             </form>
           </div>
 
-          <div class="col-xs-6 col-sm-6 col-md-3">
+          <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
             <form class="form">
               <div class="switch-field">
                 <div class="switch-title">Infrared </div>
@@ -265,7 +265,7 @@
             </form>
           </div>
 
-          <div class="col-xs-6 col-sm-6 col-md-3">
+          <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
             <form class="form">
               <div class="switch-field">
                 <div class="switch-title">Electricity</div>
@@ -277,7 +277,7 @@
             </form>
           </div>
 
-          <div class="col-xs-6 col-sm-6 col-md-3">
+          <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
             <form class="form">
               <div class="switch-field">
                 <div class="switch-title">Human in danger</div>
@@ -290,24 +290,23 @@
           </div>
         </div>
 
-        <div class="informationcontainer">
           <div class="row" id="info">
-            <div class="col-xs-6 col-sm-6 col-md-3">
+            <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
               General<br>
               <img src="general.png" width="200" height="200"/>
               <div class="agent" id="generalknowledge2"></div>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-3">
+            <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
               Lost Robot<br>
               <img src="NS-2.png" width="200" height="200"/>
               <div class="agent" id="agent12"></div>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-3">
+            <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
               Normal Robot<br>
               <img src="otherRobots.png" width="200" height="200"/>
               <div class="agent" id="agent22"></div>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-3">
+            <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
               Susan<br>
               <img src="DrCalvin.png" width="200" height="200"/>
               <div class="agent" id="susan2"></div>
@@ -316,9 +315,9 @@
           <div class="generatemodelbutton">
             <button id="generatemodel2">Generate new model</button>
           </div>
-        </div>
       </div>
     </div>
+  </div>
 
       <div id="analysis">
         <h2>Epistemic Analysis</h2>
@@ -368,8 +367,6 @@
         </ul>
       </div>
 
-      </div>
-
       <div id="references">
         <h2>References</h2>
         <li> Isaac Asimov. Little lost robot. Astounding Science Fiction, 39(1):111–132, 1947.
@@ -379,6 +376,7 @@
         <li> Verbrugge, Rineke. "Logic and social cognition." Journal of Philosophical Logic 38.6 (2009): 649-680.
       </div>
     </div>
+  </div>
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="text/x-mathjax-config">
