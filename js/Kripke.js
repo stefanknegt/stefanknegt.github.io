@@ -223,21 +223,21 @@ function drawOverview(array){
     var coords = new Array();
     var c = document.getElementById("KripkeModelGeneral");
     var ctx = c.getContext("2d");
-    var height = 350/(array.length+1);
+    var height = 400/(array.length+1);
     var property;
     
-    ctx.clearRect(0,0,350,350);
+    ctx.clearRect(0,0,400,400);
     
     columnNames = ['','gr','ir','dr','hd','na','la'];
     for(var i = 0; i < 7; i++){
         ctx.font = "20px Arial";
-        ctx.fillText(columnNames[i], (50*i+10), (height-10));
+        ctx.fillText(columnNames[i], (57*i+10), (height-10));
         for(var j = 0; j <= array.length; j++){
-            ctx.rect(50*i, height*j, 50, height);
+            ctx.rect(57*i, height*j, 57, height);
             if(i == 0){
                 if(j > 0){
                     ctx.font = "10px Arial";
-                    ctx.fillText('world' + j, (50*i+10), (height*j +20));
+                    ctx.fillText('world' + j, (57*i+10), (height*j +20));
                 }
             } else{
                 if(j > 0){
@@ -245,14 +245,14 @@ function drawOverview(array){
                     property = columnNames[i];
                     if(array[j-1][property] == 0){
                         ctx.fillStyle='red';
-                        ctx.fillRect(50*i, height*j, 50,50);
+                        ctx.fillRect(57*i, height*j, 57,57);
                         ctx.fillStyle = 'white';
-                        ctx.fillText('False', (50*i+10), (height*j + 20));
+                        ctx.fillText('False', (57*i+10), (height*j + 20));
                     } else{
                         ctx.fillStyle='green';
-                        ctx.fillRect(50*i, height*j, 50,50);
+                        ctx.fillRect(57*i, height*j, 57,57);
                         ctx.fillStyle = 'white';
-                        ctx.fillText('True', (50*i+10), (height*j + 20));
+                        ctx.fillText('True', (57*i+10), (height*j + 20));
                     }
                     ctx.fillStyle='black';
                 }
