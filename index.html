@@ -324,34 +324,68 @@
         <p> We model theory of mind-properties for the agents with the KD45 system and added beliefs. The idea of bridging cognitive science and logic, by using dynamic epistemic logic to model theory of mind is not new (Verbrugge, 2009). Pol et al. (2016) used dynamic belief updates in a computational-level model of theory of mind. This way they formalize the aspect of theory of mind regarding the attribution of mental states. In the model they focus on epistemic states, in particular on belief. Our model is based on their approach. The most important difference is that in our model, the belief updates will not be based on sequences of actions but on public announcements that change the beliefs of the agents.
             <h3> Kripke Model </h3>
             <p> In the figures below, Kripke models are shown that display the epistemic situation corresponding to the current state of the simulation.
-
-            <div class="row">
-                <center>
-                    <figure>
-                        <canvas id="KripkeModelGeneral" width="350" height="350" style="border:1px solid #000000;"></canvas>
-                        <figcaption>Legend</figcaption>
-                    </figure>
-                </center>
-                <center>
-                    <canvas id="KripkeModelNormal" width="400" height="400" style="border:1px solid #000000;"></canvas>
-                    <figcaption>The Normal Robot's internal Kripke model</figcaption>
-                    <canvas id="KripkeModelLost" width="400" height="400" style="border:1px solid #000000;"></canvas>
-                    <figcaption>The Lost Robot's internal Kripke model</figcaption>
-                    <canvas id="KripkeModelSusan" width="400" height="400" style="border:1px solid #000000;"></canvas>
-                    <figcaption>Susan's internal Kripke model</figcaption>
-                </center>
-                <div class="generatemodelbutton">
-                    <button id="generateKripkeModel">Generate new Kripke model</button>
-                </div>
-                <div class="row">
-                    <button id="announceGr" onclick=announceGr()>Announce Gr (gamma radiation)</button>
-                    <button id="announceIr" onclick=announceIr()>Announce Ir (infra-red)</button>
-                    <button id="announceDr" onclick=announceDr()>Announce Dr (danger for robots)</button>
-                    <button id="announceHd" onclick=announceHd()>Announce Hd (human in danger)</button>
-                    <button id="announceNa" onclick=announceNa()>Announce Na (normal robots act)</button>
-                    <button id="announceLa" onclick=announceLa()>Announce La (lost robot acts)</button>
-                </div>
-            </div>
+			
+			<div class ="simulation-content">
+				<div class ="row">
+					<div class = "col-xs-6">
+						<center>
+							<figure>
+								<canvas id="KripkeModelGeneral" width="350" height="350" style="border:1px solid #000000;"></canvas>
+								<figcaption>Legend</figcaption>
+							</figure>
+						</center>
+					</div>
+					<div class = "col-xs-6">
+						<center>
+							<figure>
+								<canvas id="KripkeModelNormal" width="400" height="400" style="border:1px solid #000000;"></canvas>
+								<figcaption>The Normal Robot's internal Kripke model</figcaption>
+							</figure>
+						</center>
+					</div>
+					<div class = "col-xs-6">
+						<center>
+							<figure>
+								<canvas id="KripkeModelLost" width="400" height="400" style="border:1px solid #000000;"></canvas>
+								<figcaption>The Lost Robot's internal Kripke model</figcaption>
+							</figure>
+						</center>
+					</div>
+					<div class = "col-xs-6">
+						<center>
+							<figure>
+								<canvas id="KripkeModelSusan" width="400" height="400" style="border:1px solid #000000;"></canvas>
+								<figcaption>Susan's internal Kripke model</figcaption>
+							</figure>
+						</center>
+					</div>
+					<div class="generatemodelbutton">
+						<button id="generateKripkeModel">Generate new Kripke model</button>
+					</div>
+					<div class="row">
+						<div class = "col-xs-3">
+							<button id="announceGr" class = "btn btn-primary btn-block disabled" onclick=announceGr()>Announce $Gr$ (gamma radiation)</button>
+							<button id="announceIr" class = "btn btn-primary btn-block disabled" onclick=announceIr()>Announce $Ir$ (infra-red)</button>
+							<button id="announceDr" class = "btn btn-primary btn-block disabled" onclick=announceDr()>Announce $Dr$ (danger for robots)</button>
+						</div>
+						<div class = "col-xs-3">
+							<button id="announceHd" class = "btn btn-primary btn-block disabled" onclick=announceHd()>Announce $Hd$ (human in danger)</button>
+							<button id="announceNa" class = "btn btn-primary btn-block disabled" onclick=announceNa()>Announce $Na$ (normal robots act)</button>
+							<button id="announceLa" class = "btn btn-primary btn-block disabled" onclick=announceLa()>Announce $La$ (lost robot acts)</button>
+						</div>
+						<div class = "col-xs-3">
+							<button id="announceNegGr" class = "btn btn-primary btn-block disabled" onclick=announceGr(1)>Announce $\neg Gr$ (gamma radiation)</button>
+							<button id="announceNegIr" class = "btn btn-primary btn-block disabled" onclick=announceIr(1)>Announce $\neg Ir$ (infra-red)</button>
+							<button id="announceNegDr" class = "btn btn-primary btn-block disabled" onclick=announceDr(1)>Announce $\neg Dr$ (danger for robots)</button>
+						</div>
+						<div class = "col-xs-3">
+							<button id="announceNegHd" class = "btn btn-primary btn-block disabled" onclick=announceHd(1)>Announce $\neg Hd$ (human in danger)</button>
+							<button id="announceNegNa" class = "btn btn-primary btn-block disabled" onclick=announceNa(1)>Announce $\neg Na$ (normal robots act)</button>
+							<button id="announceNegLa" class = "btn btn-primary btn-block disabled" onclick=announceLa(1)>Announce $\neg La$ (lost robot acts)</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
             The main challenge when constructing the Kripke model is the large amount of worlds that could be considered. As there are 6 axioms, which could each be true or false, there are $2^6=64$ possible worlds. However,
             many of these worlds are irrelevant considering the general knowledge of the agents. For instance, in a world where gamma radiation is true, everyone believes that the radiation is dangerous to the robots, and so

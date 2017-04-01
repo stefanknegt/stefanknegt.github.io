@@ -4,6 +4,10 @@ body {
   width: 100%;
 }
 
+figure {
+	margin-bottom: 5em;
+}
+
 body > .container {
   padding-top: 60px;
 }
@@ -32,6 +36,11 @@ button#generatemodel {
 }
 
 button#generatemodel2 {
+  text-decoration: none;
+  padding: 10px;
+}
+
+button#generateKripkeModel{
   text-decoration: none;
   padding: 10px;
 }

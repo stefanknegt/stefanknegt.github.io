@@ -263,13 +263,13 @@ function drawOverview(array){
     }
 }
 
-function announcement(announced){
+function announcement(announced, value){
     worldsNormal = new Array();
     worldsLost = new Array();
     worldsSusan = new Array();
     
     for(var i = 0; i < globalPos.length; i++){
-        if(globalPos[i][announced] == 0){
+        if(globalPos[i][announced] == value){
             globalPos.splice(i, 1);
             domain.splice(i, 1);
             i--;
@@ -287,28 +287,70 @@ function announcement(announced){
     drawKripke(globalPos, worldsSusan, 'Susan', 'blue', domain);
 }
 
-function announceGr(){
-    announcement('gr');
+function announceGr(value = 0){
+    announcement('gr', value);
+    if(value){
+		document.getElementById("announceGr").className = "btn btn-primary btn-block disabled";
+		document.getElementById("announceNegGr").className = "btn btn-success btn-block active";
+	}else{
+		document.getElementById("announceNegGr").className = "btn btn-primary btn-block disabled";
+		document.getElementById("announceGr").className = "btn btn-success btn-block active";
+	}
 }
 
-function announceIr(){
-    announcement('ir');
+function announceIr(value = 0){
+    announcement('ir', value);
+    if(value){
+		document.getElementById("announceIr").className = "btn btn-primary btn-block disabled";
+		document.getElementById("announceNegIr").className = "btn btn-success btn-block active";
+	}else{
+		document.getElementById("announceNegIr").className = "btn btn-primary btn-block disabled";
+		document.getElementById("announceIr").className = "btn btn-success btn-block active";
+	}
 }
 
-function announceDr(){
-    announcement('dr');
+function announceDr(value = 0){
+    announcement('dr', value);
+    if(value){
+		document.getElementById("announceDr").className = "btn btn-primary btn-block disabled";
+		document.getElementById("announceNegDr").className = "btn btn-success btn-block active";
+	}else{
+		document.getElementById("announceNegDr").className = "btn btn-primary btn-block disabled";
+		document.getElementById("announceDr").className = "btn btn-success btn-block active";
+	}
 }
 
-function announceHd(){
-    announcement('hd');
+function announceHd(value = 0){
+    announcement('hd', value);
+    if(value){
+		document.getElementById("announceHd").className = "btn btn-primary btn-block disabled";
+		document.getElementById("announceNegHd").className = "btn btn-success btn-block active";
+	}else{
+		document.getElementById("announceNegHd").className = "btn btn-primary btn-block disabled";
+		document.getElementById("announceHd").className = "btn btn-success btn-block active";
+	}
 }
 
-function announceNa(){
-    announcement('na');
+function announceNa(value = 0){
+    announcement('na', value);
+    if(value){
+		document.getElementById("announceNa").className = "btn btn-primary btn-block disabled";
+		document.getElementById("announceNegNa").className = "btn btn-success btn-block active";
+	}else{
+		document.getElementById("announceNegNa").className = "btn btn-primary btn-block disabled";
+		document.getElementById("announceNa").className = "btn btn-success btn-block active";
+	}
 }
 
-function announceLa(){
-    announcement('la');
+function announceLa(value = 0){
+    announcement('la', value);
+    if(value){
+		document.getElementById("announceLa").className = "btn btn-primary btn-block disabled";
+		document.getElementById("announceNegLa").className = "btn btn-success btn-block active";
+	}else{
+		document.getElementById("announceNegLa").className = "btn btn-primary btn-block disabled";
+		document.getElementById("announceLa").className = "btn btn-success btn-block active";
+	}
 }
 
 $('#generateKripkeModel').on('click',function() {
@@ -345,4 +387,18 @@ $('#generateKripkeModel').on('click',function() {
     drawKripke(globalPos, worldsSusan, 'Susan', 'blue', domain);
     
     drawOverview(globalPos);
+    
+    document.getElementById("announceGr").className = "btn btn-primary btn-block";
+    document.getElementById("announceIr").className = "btn btn-primary btn-block";
+    document.getElementById("announceDr").className = "btn btn-primary btn-block";
+    document.getElementById("announceHd").className = "btn btn-primary btn-block";
+    document.getElementById("announceNa").className = "btn btn-primary btn-block";
+    document.getElementById("announceLa").className = "btn btn-primary btn-block";
+    
+    document.getElementById("announceNegGr").className = "btn btn-primary btn-block";
+    document.getElementById("announceNegIr").className = "btn btn-primary btn-block";
+    document.getElementById("announceNegDr").className = "btn btn-primary btn-block";
+    document.getElementById("announceNegHd").className = "btn btn-primary btn-block";
+    document.getElementById("announceNegLa").className = "btn btn-primary btn-block";
+    document.getElementById("announceNegNa").className = "btn btn-primary btn-block";
 });
