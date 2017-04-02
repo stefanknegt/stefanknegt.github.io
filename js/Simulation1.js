@@ -7,22 +7,22 @@ $('ul.nav').find('a').click(function(){
 
 // Set sliders to the values corresponding to the experiments in the LLR
 function experiment1() {
-  $('comm-true').val('true').slider('checked'); 
-  $('gr-false').val('true').slider('checked'); 
-  $('ir-false').val('true').slider('checked'); 
-  $('hd-true').val('true').slider('checked'); 
+  document.getById("comm-true").checked = true;
+  document.getById("gr-false").checked = true;
+  document.getById("ir-false").checked = true;
+  document.getById("hd-true").checked = true;
 }
 function experiment2() {
-  $('comm-true').val('true').slider('refresh'); 
-  $('gr-true').val('true').slider('refresh'); 
-  $('ir-false').val('true').slider('refresh'); 
-  $('hd-true').val('true').slider('refresh');  
+  document.getById("comm-true").checked = true;
+  document.getById("gr-true").checked = true;
+  document.getById("ir-false").checked = true;
+  document.getById("hd-true").checked = true;
 }
 function experiment3() {
-  $('comm-false').val('true').slider('refresh'); 
-  $('gr-false').val('true').slider('refresh'); 
-  $('ir-true').val('true').slider('refresh'); 
-  $('hd-true').val('true').slider('refresh'); 
+  document.getById("comm-false").checked = true;
+  document.getById("gr-false").checked = true;
+  document.getById("ir-true").checked = true;
+  document.getById("hd-true").checked = true;
 }
 
 generalknowledge = [];
