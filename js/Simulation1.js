@@ -5,6 +5,26 @@ $('ul.nav').find('a').click(function(){
   return false;
 })
 
+// Set sliders to the values corresponding to the experiments in the LLR
+function experiment1() {
+  $('comm-true').val('true').slider('refresh'); 
+  $('gr-false').val('true').slider('refresh'); 
+  $('ir-false').val('true').slider('refresh'); 
+  $('hd-true').val('true').slider('refresh'); 
+}
+function experiment2() {
+  $('comm-true').val('true').slider('refresh'); 
+  $('gr-true').val('true').slider('refresh'); 
+  $('ir-false').val('true').slider('refresh'); 
+  $('hd-true').val('true').slider('refresh');  
+}
+function experiment3() {
+  $('comm-false').val('true').slider('refresh'); 
+  $('gr-false').val('true').slider('refresh'); 
+  $('ir-true').val('true').slider('refresh'); 
+  $('hd-true').val('true').slider('refresh'); 
+}
+
 generalknowledge = [];
 beliefsusan = [];
 beliefnormal = [];
@@ -201,6 +221,21 @@ $('#generatemodel').on('click',function() {
     }
   }
 
+  // Let robots share their rules and what they know to be dangerous if communication is checked
+  if($('#comm-true').is(':checked')) {   
+    var sharedKnowledge = [];
+    for(var i = 0; i < count; i++){
+        sharedKnowledge = sharedKnowledge.concat(danger[i]);
+    }
+    $.each(sharedKnowledge, function(i, el){
+        if($.inArray(el, sharedKnowledge) === -1) sharedKnowledge.push(el);
+    });
+    for(var i = 0; i < count; i++){
+        danger[i] = sharedKnowledge;
+        evaluateScenario(danger[i], 1);
+    }
+  }
+  
   // Remove all duplicates from the array
   var uniquegeneralknowledge = []
   $.each(generalknowledge, function(i, el){
@@ -210,7 +245,7 @@ $('#generatemodel').on('click',function() {
 
   // Check implications of the given knowledge
   checkImplications(generalknowledge);
-
+  
   //Generate the models based on the current knowledge
   generateModel(generalknowledge,'generalknowledge');
   generateModel(belieflost,'agent1');
