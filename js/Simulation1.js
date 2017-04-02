@@ -7,10 +7,10 @@ $('ul.nav').find('a').click(function(){
 
 // Set sliders to the values corresponding to the experiments in the LLR
 function experiment1() {
-  $('comm-true').val('true').slider('refresh'); 
-  $('gr-false').val('true').slider('refresh'); 
-  $('ir-false').val('true').slider('refresh'); 
-  $('hd-true').val('true').slider('refresh'); 
+  $('comm-true').val('true').slider('checked'); 
+  $('gr-false').val('true').slider('checked'); 
+  $('ir-false').val('true').slider('checked'); 
+  $('hd-true').val('true').slider('checked'); 
 }
 function experiment2() {
   $('comm-true').val('true').slider('refresh'); 
