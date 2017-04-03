@@ -138,7 +138,11 @@ function generateModel(array,agent) {
       } 
     
       if(array.includes("na") && agent == "agent2") {
-        output.push('<span>' + 'so I will try to save the human.' + '</span><br>');
+        output.push('<span>' + 'Therefore I will try to save the human.' + '</span><br>');
+      }
+    
+      if(belieflost.includes("dr") && agent == "agent1") {
+        output.push('<span>' + 'I believe the radiation will kill me so I will not save the human.' + '</span><br>');
       }
     
       if(!array.includes("na") && ($('#comm-true').is(':checked')) && agent == "agent2") {
