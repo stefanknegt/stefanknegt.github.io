@@ -109,9 +109,13 @@ function generateModel(array,agent) {
   var output = [];
   if(agent != 'generalknowledge') {
     
-      if(!array.includes("hd")) {
+      if(($('#hd-false').is(':checked')) && (agent == "agent2" || agent == "agent1")) {
         output.push('<span>' + 'I do not believe that a human is in danger so I will not act.' + '</span><br>');
       }   
+
+      if(($('#hd-true').is(':checked')) && (agent == "agent2" || agent == "agent1")) {
+        output.push('<span>' + 'I believe a human is in danger.' + '</span><br>');
+      }
     
       if(array.includes("gr") && array.includes("dr")) {
         output.push('<span>' + 'I believe that gamma radiation is present and that this is dangerous.' + '</span><br>');
@@ -130,7 +134,7 @@ function generateModel(array,agent) {
       }
       
       if(agent == "agent1" && belieflost.includes("na")) {
-        output.push('<span>' + 'I believe the other robots will try to save the human so will try to save the human as well to not get discovered.' + '</span><br>');
+        output.push('<span>' + 'I believe the other robots will try to save the human so I will try to save the human as well to not get discovered.' + '</span><br>');
       } 
     
       if(array.includes("na") && agent == "agent2") {
@@ -146,7 +150,7 @@ function generateModel(array,agent) {
         alert("Well done, Susan has identified the lost robot.")
       }
 
-      if(!array.includes("ID")) {
+      if(!array.includes("ID") && !(agent == "agent2" || agent == "agent1")) {
         output.push('<span>' + 'The two types of robot acted in an identical way so I can not identify the lost robot.' + '</span>');
       }
 
