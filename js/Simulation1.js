@@ -111,40 +111,45 @@ function generateModel(array,agent) {
     
       if(($('#hd-false').is(':checked')) && (agent == "agent2" || agent == "agent1")) {
         output.push('<span>' + 'I do not believe that a human is in danger so I will not act.' + '</span><br>');
-      }   
+      } else {  
+        
+        if((agent == "agent2" || agent == "agent1")) {
+          output.push('<span>' + 'I believe a human is in danger.' + '</span><br>');
+        }
 
-      if(($('#hd-true').is(':checked')) && (agent == "agent2" || agent == "agent1")) {
-        output.push('<span>' + 'I believe a human is in danger.' + '</span><br>');
+        if(array.includes("gr") && array.includes("dr")) {
+          output.push('<span>' + 'I believe that gamma radiation is present and that this is dangerous.' + '</span><br>');
+        }
+
+        if(array.includes("ir") && ($('#comm-true').is(':checked')) && agent == 'agent2') {
+          output.push('<span>' + 'I believe that infrared radiation is present, but one robot told that this is not dangerous.' + '</span><br>');
+        }
+
+        if(array.includes("ir") && !($('#comm-true').is(':checked')) && agent == 'agent2') {
+          output.push('<span>' + 'I believe that infrared radiation is present and that this is dangerous.' + '</span><br>');
+        }
+
+        if(array.includes("ir") && agent == 'agent1') {
+          output.push('<span>' + 'I believe that infrared radiation is present, but this is not dangerous.' + '</span><br>');
+        }
+
+        if(agent == "agent1" && belieflost.includes("na")) {
+          output.push('<span>' + 'I believe the other robots will try to save the human so I will try to save the human as well to not get discovered.' + '</span><br>');
+        } 
+
+        if(array.includes("na") && agent == "agent2") {
+          output.push('<span>' + 'Therefore I will try to save the human.' + '</span><br>');
+        }
+
+        if(belieflost.includes("dr") && agent == "agent1") {
+          output.push('<span>' + 'I believe the radiation will kill me so I will not save the human.' + '</span><br>');
+        }
+
+        if(!array.includes("na") && ($('#comm-true').is(':checked')) && agent == "agent2") {
+          output.push('<span>' + 'One robot told me that the radiation will kill me, meaning that I cannot save humans in the future anymore so I will not try to save the human.' + '</span><br>');
+        }
       }
     
-      if(array.includes("gr") && array.includes("dr")) {
-        output.push('<span>' + 'I believe that gamma radiation is present and that this is dangerous.' + '</span><br>');
-      }
-
-      if(array.includes("ir") && ($('#comm-true').is(':checked')) && agent == 'agent2') {
-        output.push('<span>' + 'I believe that infrared radiation is present, but the lost robot said that this is not dangerous.' + '</span><br>');
-      }
-
-      if(array.includes("ir") && !($('#comm-true').is(':checked')) && agent == 'agent2') {
-        output.push('<span>' + 'I believe that infrared radiation is present and that this is dangerous.' + '</span><br>');
-      }
-      
-      if(array.includes("ir") && agent == 'agent1') {
-        output.push('<span>' + 'I believe that infrared radiation is present, but this is not dangerous.' + '</span><br>');
-      }
-      
-      if(agent == "agent1" && belieflost.includes("na")) {
-        output.push('<span>' + 'I believe the other robots will try to save the human so I will try to save the human as well to not get discovered.' + '</span><br>');
-      } 
-    
-      if(array.includes("na") && agent == "agent2") {
-        output.push('<span>' + 'so I will try to save the human.' + '</span><br>');
-      }
-    
-      if(!array.includes("na") && ($('#comm-true').is(':checked')) && agent == "agent2") {
-        output.push('<span>' + 'One robot told me that the radiation will kill me, meaning that I cannot save humans in the future anymore so I will not try to save the human.' + '</span><br>');
-      }
-
       if(array.includes("ID")) {
         output.push('<span>' + 'The two types of robot both acted in a different way so I have identified the lost robot.' + '</span>');
       }
