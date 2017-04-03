@@ -105,25 +105,24 @@
         <li> The second experiment Susan comes up with is very similar to the first one, the only difference is that a beam of gamma radiation can now be found between the robots and the human. This corresponds with switching at least one of the $Dr$ and $Gr$ switches to true. Because the First Law (save humans) is more powerful than the Third (save yourself), the normal robots should leap to save the person, even if it means their death. The lost robot however, lacks the "save humans" command, so it should be ruled by the Third Law and stay seated. Nevertheless, all robots now do nothing since one of the robots has pointed out that they couldn't save the human and if they stayed seated, they might save a human sometime in the future.
         <li> After this, Susan runs the third experiment as explained in the Problem outline. This experiment entails switching the $Hd$ and $Ir$ switches to true, leading to Susan finding out which robot is the little lost robot.
 
-	<div class="row">
-  	  <div class="col-xs-6 col-sm-4" id="experimentButton">
-  	    <div id="experiment1">
-              <button id="experiment1button" onclick=experiment1()>Experiment 1</button>
-            </div>
-   	  </div>  
-          <div class="col-xs-6 col-sm-4" id="experimentButton">
-	    <div id="experiment2">
-              <button id="experiment2button" onclick=experiment2()>Experiment 2</button>
-            </div>
-          </div>
-          <div class="col-xs-6 col-sm-4" id="experimentButton">
-	    <div id="experiment3">
-              <button id="experiment3button" onclick=experiment3()>Experiment 3</button>
-            </div>
-          </div>
-        </div>   
-		
       <div class="simulation-content">
+        <div class="row" id="experimentButtons">
+            <div class="col-xs-6 col-sm-4" id="experimentButton">
+              <div id="experiment1">
+                    <button id="experiment1button" onclick=experiment1()>Settings experiment 1</button>
+                  </div>
+            </div>
+                <div class="col-xs-6 col-sm-4" id="experimentButton">
+            <div id="experiment2">
+                    <button id="experiment2button" onclick=experiment2()>Settings experiment 2</button>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-sm-4" id="experimentButton">
+            <div id="experiment3">
+                    <button id="experiment3button" onclick=experiment3()>Settings experiment 3</button>
+                  </div>
+                </div>
+        </div>
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
               <form class="form">
@@ -205,42 +204,42 @@
 
       <div id="simulation2">
         <h2>Extended Simulation</h2>
-        
+
         We have also created a separate simulation with some additions to the original simulation. We will first give a brief summary of each addition, as well as how it changes the simulation.
         <ol>
         <li><strong>Allow Susan to tell each robot what they should perceive as dangerous.</strong> In the original experiment, Susan warned both robots about the dangers of gamma radiation. In this simulation, we give
-        the user control about what Susan should tell each robot what they should watch out for. For instance, to simulate the original experiment, the user would check "gamma radiation" for both the lost robot and the 
+        the user control about what Susan should tell each robot what they should watch out for. For instance, to simulate the original experiment, the user would check "gamma radiation" for both the lost robot and the
         normal robot. The same difference between the lost robot and the normal robot remains, so normal robots are still unable to distinguish between different types of radiation. This means that warning the normal robot
         about either gamma radiation or infra-red, will result in the robot seeing both as dangerous. On the other hand, selecting only infra-red for the lost robot has the consequence that it will still act if there is
-        gamma radiation present, and the same applies if the lost robot is warned about gamma-radiation and infrared is present. 
-        
-        This can be expressed in the formulas $M \models B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, which replaces $M \models B_N ((Gr \lor Ir) \leftrightarrow Dr)$ in the original situation, 
-        $M \models \neg B_L((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, which replaces $M \models B_L (Gr \leftrightarrow Dr)$, and finally 
-        $M \models B_L(\neg B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$, which replaces $M \models B_L (B_N (Gr \leftrightarrow Dr))$. Susan is still aware of these differences, so we 
-        also replace $M \models B_S (B_N ((Gr \lor Ir) \leftrightarrow Dr))$ and $M \models B_S (B_L (B_N (Gr \leftrightarrow Dr)))$  with $M \models B_S (B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$ 
-        and $M \models B_S(B_L(\neg B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))))$. This changes the goal state, as it is no longer enough for one robot to act differently than the other 
-        robot, since this could be explained by the difference in what they were told beforehand, rather than one robot actually being the lost robot. Instead, Susan will now have to reason for both robots 
+        gamma radiation present, and the same applies if the lost robot is warned about gamma-radiation and infrared is present.
+
+        This can be expressed in the formulas $M \models B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, which replaces $M \models B_N ((Gr \lor Ir) \leftrightarrow Dr)$ in the original situation,
+        $M \models \neg B_L((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, which replaces $M \models B_L (Gr \leftrightarrow Dr)$, and finally
+        $M \models B_L(\neg B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$, which replaces $M \models B_L (B_N (Gr \leftrightarrow Dr))$. Susan is still aware of these differences, so we
+        also replace $M \models B_S (B_N ((Gr \lor Ir) \leftrightarrow Dr))$ and $M \models B_S (B_L (B_N (Gr \leftrightarrow Dr)))$  with $M \models B_S (B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$
+        and $M \models B_S(B_L(\neg B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))))$. This changes the goal state, as it is no longer enough for one robot to act differently than the other
+        robot, since this could be explained by the difference in what they were told beforehand, rather than one robot actually being the lost robot. Instead, Susan will now have to reason for both robots
         if their reactions, given what they are told, is consistent with how the lost robot would act and how a normal robot would act. Then, if a robot's response is
-        not consistent with that of a normal robot, it must be the lost robot. Also, if a robot's response is not consistent with that of the lost robot, then the other robot must be the lost robot. We first 
-        change the axiom $Dr$ to $Dr_{(x,i)}$, which now means "The situation is dangerous according to robot i if it were agent x", with x  and i being either the lost or the normal robot. Then, we can represent 
+        not consistent with that of a normal robot, it must be the lost robot. Also, if a robot's response is not consistent with that of the lost robot, then the other robot must be the lost robot. We first
+        change the axiom $Dr$ to $Dr_{(x,i)}$, which now means "The situation is dangerous according to robot i if it were agent x", with x  and i being either the lost or the normal robot. Then, we can represent
         the goal states as the formulas $B_S((Dr_{(La,Na)} \land La) \lor (Dr_{(Na,La)} \land Na))$ as well as $B_S((\neg Dr_{(La,Na)} \land Hd \land \neg La) \lor (\neg Dr_{(Na,La)} \land Hd \land \neg Na))$.
         In the first case, one of the robots reveals their identities by acting when the other robot wouldn't have, while in the second case it does so by not acting when the other would have.</li>
-        
-        <li><strong>Allow more normal robots to be created</strong> Without the first addition, this feature would change nothing since each normal robot would act the same way. However, if Susan were to tell 
+
+        <li><strong>Allow more normal robots to be created</strong> Without the first addition, this feature would change nothing since each normal robot would act the same way. However, if Susan were to tell
         each robot something different, then they will act different as well. This changes when Susan can identify the lost robot. Where before it would have been enough if one normal robot acted in a way that
-        it could not be the lost robot, this is no longer true if there are two or more normal robots, since there would still be two or more robots that could potentially be the lost robot. Instead, every 
+        it could not be the lost robot, this is no longer true if there are two or more normal robots, since there would still be two or more robots that could potentially be the lost robot. Instead, every
         normal robot should act in a way that the lost robot would not, so that the lost robot can be identified by process of elimination. However, it is still enough if the lost robot acts unlike how a normal robot would act.</li>
-        
-        <li><strong>Allow different scenarios</strong> We've added two extra scenarios, which both change the difference between what the lost robot believes and what the normal robots believe. The user can select 
-        the desired scenario using a drop-down menu. The first option is the original problem, in which the lost robot can distinguish between infra-red and gamma radiation, while the normal robots cannot. When 
-        choosing the second option, the lost robot will infer that, should gamma radiation be present, then electricity is present as well, while also assuming that the other robots believe this as well, and Susan 
-        is again aware of this difference. So we add the rules $M \models B_L(Gr \rightarrow El)$, $M \models B_L(B_N(Gr \rightarrow El))$, $M \models B_S(B_L(B_N(Gr \rightarrow El)))$ and 
-        $M \models B_S(\neg B_N(Gr \rightarrow El))$, where $El$ stands for "electricity is present". These replace the rules $M \models B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, 
-        $M \models \neg B_L((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, $M \models B_L(\neg B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$, 
-        $M \models B_S (B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$ and $M \models B_S(B_L(\neg B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))))$ . In the third scenario, only the 
-        lost robot believes it should always act when a human is in danger, regardless of the dangers present. So this scenario replaces the rule $M \models C((Hd \land \neg Dr) \leftrightarrow Na)$ with 
+
+        <li><strong>Allow different scenarios</strong> We've added two extra scenarios, which both change the difference between what the lost robot believes and what the normal robots believe. The user can select
+        the desired scenario using a drop-down menu. The first option is the original problem, in which the lost robot can distinguish between infra-red and gamma radiation, while the normal robots cannot. When
+        choosing the second option, the lost robot will infer that, should gamma radiation be present, then electricity is present as well, while also assuming that the other robots believe this as well, and Susan
+        is again aware of this difference. So we add the rules $M \models B_L(Gr \rightarrow El)$, $M \models B_L(B_N(Gr \rightarrow El))$, $M \models B_S(B_L(B_N(Gr \rightarrow El)))$ and
+        $M \models B_S(\neg B_N(Gr \rightarrow El))$, where $El$ stands for "electricity is present". These replace the rules $M \models B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$,
+        $M \models \neg B_L((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, $M \models B_L(\neg B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$,
+        $M \models B_S (B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$ and $M \models B_S(B_L(\neg B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))))$ . In the third scenario, only the
+        lost robot believes it should always act when a human is in danger, regardless of the dangers present. So this scenario replaces the rule $M \models C((Hd \land \neg Dr) \leftrightarrow Na)$ with
         $M \models B_N((Hd \land \neg Dr) \leftrightarrow Na)$, $M \models B_L(Hd \leftrightarrow Na)$, $M \models B_S(B_N((Hd \land \neg Dr) \leftrightarrow Na))$ and $M \models B_S(B_N(Hd \leftrightarrow Na))$.</li>
-        
+
         </ol>
         <div class="simulation-content">
           <div clas="row">
@@ -278,7 +277,7 @@
             </div>
         <div style="border-style:ridge; margin-top:10px">
             <form class="form">
-                <center><h4>2. Which scenario should we use for the simulation? </h4></center> 
+                <center><h4>2. Which scenario should we use for the simulation? </h4></center>
                 <select id="scenario">
                   <option value="difRad">Only the lost robot can distinguish between radiation types (Original Problem)</option>
                   <option value="eleGr">Only the lost robot believes that gamma radiation leads to electricity</option>
@@ -349,7 +348,7 @@
                 </form>
             </div>
         </div>
-        
+
         <div style="border-style:ridge; margin-top:10px">
             <center><h4>4. How each agent will react given what they are told, the scenario and what they perceive during the experiment. </h4></center>
               <div class="row" id="info">
@@ -387,7 +386,7 @@
         <p> We model theory of mind-properties for the agents with the KD45 system and added beliefs. The idea of bridging cognitive science and logic, by using dynamic epistemic logic to model theory of mind is not new (Verbrugge, 2009). Pol et al. (2016) used dynamic belief updates in a computational-level model of theory of mind. This way they formalize the aspect of theory of mind regarding the attribution of mental states. In the model they focus on epistemic states, in particular on belief. Our model is based on their approach. The most important difference is that in our model, the belief updates will not be based on sequences of actions but on public announcements that change the beliefs of the agents.
             <h3> Kripke Model </h3>
             <p> In the figures below, Kripke models are shown that display the epistemic situation corresponding to the current state of the simulation.
-			
+
 			<div class ="simulation-content">
 				<div class ="row">
 					<div class = "col-xs-6">
