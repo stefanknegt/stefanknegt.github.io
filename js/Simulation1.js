@@ -59,7 +59,7 @@ function checkImplications(array) {
       beliefnormal.push("na");
       changed = 1;
     }
-    if(array.includes("hd") && beliefnormal.includes("dr") && array.includes("dr") && !beliefnormal.includes("na") && !($('#comm-true').is(':checked')) {
+    if(array.includes("hd") && beliefnormal.includes("dr") && array.includes("dr") && !beliefnormal.includes("na") && ($('#comm-false').is(':checked')) {
       beliefnormal.push("na");
       changed = 1;
     }
