@@ -85,7 +85,7 @@
         <ul>
             <li> $M \models C((Hd \land \neg Dr) \leftrightarrow Na)$ : Normal robots will only act if someone is in danger when there is no dangerous radiation present, since they will not be able to do anything before being destroyed. This rule replaces the very first rule.</li>
             <li> $M \models B_L (Gr \leftrightarrow Dr)$ : The lost robot believes that gamma radiation and only gamma radiation counts as dangerous radiation.</li>
-            <li> $M \models B_N ((Gr \lor Ir) \leftrightarrow Dr$ : The normal robot believes that every type of radiation is dangerous radiation, since they cannot distinguish between different types.</li>
+            <li> $M \models B_N ((Gr \lor Ir) \leftrightarrow Dr)$ : The normal robot believes that every type of radiation is dangerous radiation, since they cannot distinguish between different types.</li>
             <li> $M \models B_L (B_N (Gr \leftrightarrow Dr))$ : The lost robot believes that the normal robot also believes that it only needs to be aware of gamma radiation. </li>
             <li> $M \models B_S (B_N ((Gr \lor Ir) \leftrightarrow Dr))$ : Susan believes that normal robots cannot distinguish between infrared and gamma radiation. </li>
             <li> $M \models B_S (B_L (B_N (Gr \leftrightarrow Dr)))$ : Susan also believes that the lost robot believes that the normal robot believes that it is only in danger when there is gamma radiation. </li>
@@ -205,133 +205,175 @@
 
       <div id="simulation2">
         <h2>Extended Simulation</h2>
-
+        
+        We have also created a separate simulation with some additions to the original simulation. We will first give a brief summary of each addition, as well as how it changes the simulation.
+        <ol>
+        <li><strong>Allow Susan to tell each robot what they should perceive as dangerous.</strong> We've added this element as a checklist, in which the user can check the things that each robot 
+        should see as too dangerous so that it will no longer act. Yet the same difference between the lost robot and the normal robot still applies, so the normal robot believes that if gamma radiation 
+        is dangerous, then infrared radiation is dangerous as well. Meanwhile, the lost robot still thinks that these two are separate, and that the normal robot also thinks that these are separate. This can be 
+        expressed in the formulas $M \models B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, which replaces $M \models B_N ((Gr \lor Ir) \leftrightarrow Dr)$ in the original situation, 
+        $M \models \neg B_L((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, which replaces $M \models B_L (Gr \leftrightarrow Dr)$, and finally 
+        $M \models B_L(\neg B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$, which replaces $M \models B_L (B_N (Gr \leftrightarrow Dr))$. Susan is still aware of these differences, so we 
+        also replace $M \models B_S (B_N ((Gr \lor Ir) \leftrightarrow Dr))$ and $M \models B_S (B_L (B_N (Gr \leftrightarrow Dr)))$  with $M \models B_S (B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$ 
+        and $M \models B_S(B_L(\neg B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))))$. This changes the goal state, as it is no longer enough for one robot to act differently than the other 
+        robot, since this could be explained by the difference in what they were told beforehand, rather than one robot actually being the lost robot. Instead, Susan will now have to reason for both robots 
+        if their reactions, given what they are told, is consistent with how the lost robot would act and how a normal robot would act. Then, if a robot's response is
+        not consistent with that of a normal robot, it must be the lost robot. Also, if a robot's response is not consistent with that of the lost robot, then the other robot must be the lost robot. We first 
+        change the axiom $Dr$ to $Dr_{(x,i)}$, which now means "The situation is dangerous according to robot i if it were agent x", with x  and i being either the lost or the normal robot. Then, we can represent 
+        the goal states as the formulas $B_S((Dr_{(La,Na)} \land La) \lor (Dr_{(Na,La)} \land Na))$ as well as $B_S((\neg Dr_{(La,Na)} \land Hd \land \neg La) \lor (\neg Dr_{(Na,La)} \land Hd \land \neg Na))$.
+        In the first case, one of the robots reveals their identities by acting when the other robot wouldn't have, while in the second case it does so by not acting when the other would have.</li>
+        
+        <li><strong>Allow more normal robots to be created</strong> Without the first addition, this feature would change nothing since each normal robot would act the same way. However, if Susan were to tell 
+        each robot something different, then they will act different as well. This changes when Susan can identify the lost robot. Where before it would have been enough if one normal robot acted in a way that
+        it could not be the lost robot, this is no longer true if there are two or more normal robots, since there would still be two or more robots that could potentially be the lost robot. Instead, every 
+        normal robot should act in a way that the lost robot would not, so that the lost robot can be identified by process of elimination. However, it is still enough if the lost robot acts unlike how a normal robot would act.</li>
+        
+        <li><strong>Allow different scenarios</strong> We've added two extra scenarios, which both change the difference between what the lost robot believes and what the normal robots believe. The user can select 
+        the desired scenario using a drop-down menu. The first option is the original problem, in which the lost robot can distinguish between infra-red and gamma radiation, while the normal robots cannot. When 
+        choosing the second option, the lost robot will infer that, should gamma radiation be present, then electricity is present as well, while also assuming that the other robots believe this as well, and Susan 
+        is again aware of this difference. So we add the rules $M \models B_L(Gr \rightarrow El)$, $M \models B_L(B_N(Gr \rightarrow El))$, $M \models B_S(B_L(B_N(Gr \rightarrow El)))$ and 
+        $M \models B_S(\neg B_N(Gr \rightarrow El))$, where $El$ stands for "electricity is present". These replace the rules $M \models B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, 
+        $M \models \neg B_L((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, $M \models B_L(\neg B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$, 
+        $M \models B_S (B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$ and $M \models B_S(B_L(\neg B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))))$ . In the third scenario, only the 
+        lost robot believes it should always act when a human is in danger, regardless of the dangers present. So this scenario replaces the rule $M \models C((Hd \land \neg Dr) \leftrightarrow Na)$ with 
+        $M \models B_N((Hd \land \neg Dr) \leftrightarrow Na)$, $M \models B_L(Hd \leftrightarrow Na)$, $M \models B_S(B_N((Hd \land \neg Dr) \leftrightarrow Na))$ and $M \models B_S(B_N(Hd \leftrightarrow Na))$.</li>
+        
+        </ol>
         <div class="simulation-content">
           <div clas="row">
-            <div id ="robots">
-                <div class="col-xs-6 col-sm-6 col-md-12">
-                    <form class="form">
-                        <div class="switch-title"> Robot 1 </div>
-                        <input type="checkbox" id="1ir-danger">
-                        <label for="ir-danger">Infra-red</label>
-                        <input type="checkbox" id="1gr-danger">
-                        <label for="ir-danger">Gamma radiation</label>
-                        <input type="checkbox" id="1el-danger">
-                        <label for="ir-danger">Electricity</label>
-                    </form>
+            <div style="border-style: ridge">
+                <div id ="robots">
+                    <div class="col-xs-6 col-sm-6 col-md-12">
+                        <h4>1. Which circumstances should Susan warn the robots about?</h4>
+                        <form class="form">
+                            <div class="switch-title"> Robot 1 </div>
+                            <input type="checkbox" id="1ir-danger">
+                            <label for="ir-danger">Infra-red</label>
+                            <input type="checkbox" id="1gr-danger">
+                            <label for="ir-danger">Gamma radiation</label>
+                            <input type="checkbox" id="1el-danger">
+                            <label for="ir-danger">Electricity</label>
+                        </form>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-12">
+                        <form class="form">
+                            <div class="switch-title"> Robot 2 </div>
+                            <input type="checkbox" id="2ir-danger">
+                            <label for="ir-danger">Infra-red</label>
+                            <input type="checkbox" id="2gr-danger">
+                            <label for="ir-danger">Gamma radiation</label>
+                            <input type="checkbox" id="2el-danger">
+                            <label for="ir-danger">Electricity</label>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-12">
-                    <form class="form">
-                        <div class="switch-title"> Robot 2 </div>
-                        <input type="checkbox" id="2ir-danger">
-                        <label for="ir-danger">Infra-red</label>
-                        <input type="checkbox" id="2gr-danger">
-                        <label for="ir-danger">Gamma radiation</label>
-                        <input type="checkbox" id="2el-danger">
-                        <label for="ir-danger">Electricity</label>
-                    </form>
+
+                <div id="generaterobot">
+                    <button id="generaterobotbutton" onclick=generateRobot()>Generate new robot</button>
                 </div>
+                <div id="removerobot"></div>
             </div>
-
-        <div id="generaterobot">
-            <button id="generaterobotbutton" onclick=generateRobot()>Generate new robot</button>
-        </div>
-        <div id="removerobot"></div>
-
-        <form class="form">
-            <select id="scenario">
-              <option value="difRad">Only the lost robot can distinguish between radiation types (Original Problem)</option>
-              <option value="eleGr">Only the lost robot believes that gamma radiation leads to electricity</option>
-              <option value="safe">Only the lost robot believes that they should act, even if the situation is dangerous</option>
-            </select>
-        </form>
-
-        <div class="row">
-          <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
+        <div style="border-style:ridge; margin-top:10px">
             <form class="form">
-              <div class="switch-field">
-                <div class="switch-title">Allow communication </div>
-                <input type="radio" id="comm-false2" name="switch_2" value="false" checked/>
-                <label for="comm-false2">False</label>
-                <input type="radio" id="comm-true2" name="switch_2" value="true" />
-                <label for="comm-true2">True</label>
-              </div>
+                <center><h4>2. Which scenario should we use for the simulation? </h4></center> 
+                <select id="scenario">
+                  <option value="difRad">Only the lost robot can distinguish between radiation types (Original Problem)</option>
+                  <option value="eleGr">Only the lost robot believes that gamma radiation leads to electricity</option>
+                  <option value="safe">Only the lost robot believes that they should act, even if the situation is dangerous</option>
+                </select>
             </form>
         </div>
 
-          <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
-            <form class="form">
-              <div class="switch-field">
-                <div class="switch-title">Gamma radiation </div>
-                <input type="radio" id="gr-false2" name="switch_2" value="false" checked/>
-                <label for="gr-false2">False</label>
-                <input type="radio" id="gr-true2" name="switch_2" value="true" />
-                <label for="gr-true2">True</label>
-              </div>
-            </form>
-          </div>
+        <div class="row" style="border-style:ridge; margin:auto; display:block; margin-top:10px">
+            <center><h4> 3. What will be present in the experiment? </h4></center>
+              <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
+                <form class="form">
+                  <div class="switch-field">
+                    <div class="switch-title">Allow communication </div>
+                    <input type="radio" id="comm-false2" name="switch_2" value="false" checked/>
+                    <label for="comm-false2">False</label>
+                    <input type="radio" id="comm-true2" name="switch_2" value="true" />
+                    <label for="comm-true2">True</label>
+                  </div>
+                </form>
+            </div>
 
-          <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
-            <form class="form">
-              <div class="switch-field">
-                <div class="switch-title">Infrared </div>
-                <input type="radio" id="ir-false2" name="switch_2" value="false" checked/>
-                <label for="ir-false2">False</label>
-                <input type="radio" id="ir-true2" name="switch_2" value="true" />
-                <label for="ir-true2">True</label>
-              </div>
-            </form>
-          </div>
+            <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
+                <form class="form">
+                  <div class="switch-field">
+                    <div class="switch-title">Gamma radiation </div>
+                    <input type="radio" id="gr-false2" name="switch_2" value="false" checked/>
+                    <label for="gr-false2">False</label>
+                    <input type="radio" id="gr-true2" name="switch_2" value="true" />
+                    <label for="gr-true2">True</label>
+                  </div>
+                </form>
+            </div>
 
-          <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
-            <form class="form">
-              <div class="switch-field">
-                <div class="switch-title">Electricity</div>
-                <input type="radio" id="el-false2" name="switch_2" value="false" checked/>
-                <label for="el-false2">False</label>
-                <input type="radio" id="el-true2" name="switch_2" value="true" />
-                <label for="el-true2">True</label>
-              </div>
-            </form>
-          </div>
+            <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
+                <form class="form">
+                  <div class="switch-field">
+                    <div class="switch-title">Infrared </div>
+                    <input type="radio" id="ir-false2" name="switch_2" value="false" checked/>
+                    <label for="ir-false2">False</label>
+                    <input type="radio" id="ir-true2" name="switch_2" value="true" />
+                    <label for="ir-true2">True</label>
+                  </div>
+                </form>
+            </div>
 
-          <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
-            <form class="form">
-              <div class="switch-field">
-                <div class="switch-title">Human in danger</div>
-                <input type="radio" id="hd-false2" name="switch_2" value="false" checked/>
-                <label for="hd-false2">False</label>
-                <input type="radio" id="hd-true2" name="switch_2" value="true" />
-                <label for="hd-true2">True</label>
-              </div>
-            </form>
-          </div>
+            <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
+                <form class="form">
+                  <div class="switch-field">
+                    <div class="switch-title">Electricity</div>
+                    <input type="radio" id="el-false2" name="switch_2" value="false" checked/>
+                    <label for="el-false2">False</label>
+                    <input type="radio" id="el-true2" name="switch_2" value="true" />
+                    <label for="el-true2">True</label>
+                  </div>
+                </form>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-3" id="switch">
+                <form class="form">
+                  <div class="switch-field">
+                    <div class="switch-title">Human in danger</div>
+                    <input type="radio" id="hd-false2" name="switch_2" value="false" checked/>
+                    <label for="hd-false2">False</label>
+                    <input type="radio" id="hd-true2" name="switch_2" value="true" />
+                    <label for="hd-true2">True</label>
+                  </div>
+                </form>
+            </div>
         </div>
-
-          <div class="row" id="info">
-            <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
-              General<br>
-              <img src="general.png" width="200" height="200"/>
-              <div class="agent" id="generalknowledge2"></div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
-              Lost Robot<br>
-              <img src="NS-2.png" width="200" height="200"/>
-              <div class="agent" id="agent12"></div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
-              Normal Robot<br>
-              <img src="otherRobots.png" width="200" height="200"/>
-              <div class="agent" id="agent22"></div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
-              Susan<br>
-              <img src="DrCalvin.png" width="200" height="200"/>
-              <div class="agent" id="susan2"></div>
-            </div>
-          </div>
-          <div class="generatemodelbutton">
-            <button id="generatemodel2">Generate new model</button>
+        
+        <div style="border-style:ridge; margin-top:10px">
+            <center><h4>4. How each agent will react given what they are told, the scenario and what they perceive during the experiment. </h4></center>
+              <div class="row" id="info">
+                <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
+                  General<br>
+                  <img src="general.png" width="200" height="200"/>
+                  <div class="agent" id="generalknowledge2"></div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
+                  Lost Robot<br>
+                  <img src="NS-2.png" width="200" height="200"/>
+                  <div class="agent" id="agent12"></div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
+                  Normal Robot<br>
+                  <img src="otherRobots.png" width="200" height="200"/>
+                  <div class="agent" id="agent22"></div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
+                  Susan<br>
+                  <img src="DrCalvin.png" width="200" height="200"/>
+                  <div class="agent" id="susan2"></div>
+                </div>
+              </div>
+              <div class="generatemodelbutton">
+                <button id="generatemodel2">Generate new model</button>
+              </div>
           </div>
       </div>
     </div>

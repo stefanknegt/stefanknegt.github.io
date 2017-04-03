@@ -422,20 +422,22 @@ $('#generatemodel2').on('click',function() {
   }
 
   // Let robots make inferences from what they know to be dangerous, if there are more potential dangers
-  // Also allow Susan to make inferences of what each robot knows to be dangerous, assuming they are all normal robots
-  for(var i = 0; i < count; i++){
-    if(i == 0){
-        dangerNormal[i] = danger[i].slice();
-        evaluateScenario(dangerNormal[i], 0);
-        evaluateScenario(danger[i], 1);
-        dangerLost[i] = danger[i].slice();
-    } else{
-        dangerLost[i] = danger[i].slice();
-        evaluateScenario(dangerLost[i], 1);
-        evaluateScenario(danger[i], 0);
-        dangerNormal[i] = danger[i].slice();
+  // Also allow Susan to make inferences of what each robot knows to be dangerous, assuming they are all normal robots or all lost robots
+    if(!$('#comm-true2').is(':checked')){
+      for(var i = 0; i < count; i++){
+        if(i == 0){
+            dangerNormal[i] = danger[i].slice();
+            evaluateScenario(dangerNormal[i], 0);
+            evaluateScenario(danger[i], 1);
+            dangerLost[i] = danger[i].slice();
+        } else{
+            dangerLost[i] = danger[i].slice();
+            evaluateScenario(dangerLost[i], 1);
+            evaluateScenario(danger[i], 0);
+            dangerNormal[i] = danger[i].slice();
+        }
+      }
     }
-  }
 
   // Let robots share their rules and what they know to be dangerous if communication is checked
   if($('#comm-true2').is(':checked')) {
@@ -449,6 +451,8 @@ $('#generatemodel2').on('click',function() {
     for(var i = 0; i < count; i++){
         danger[i] = sharedKnowledge;
         evaluateScenario(danger[i], 1);
+        dangerNormal[i] = danger[i].slice();
+        dangerLost[i] = danger[i].slice();
     }
   }
 

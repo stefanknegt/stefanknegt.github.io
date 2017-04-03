@@ -48,8 +48,10 @@ function checkImplications(array) {
       beliefnormal.push("gr");
       changed = 1;
     }
-    if(array.includes("ir") && !beliefnormal.includes("ir")) {
-      beliefnormal.push("dr");
+    if(array.includes("ir") && !beliefnormal.includes("ir")){
+      if(!($('#comm-true').is(':checked'))) {
+        beliefnormal.push("dr");
+      }
       beliefnormal.push("ir");
       changed = 1;
     }
@@ -110,14 +112,18 @@ function generateModel(array,agent) {
         output.push('<span>' + 'I believe that gamma radiation is present and that this is dangerous.' + '</span><br>');
       }
 
-      if(array.includes("ir") && agent == 'agent2') {
-        output.push('<span>' + 'I believe that infrared radiation is present and that this is dangerous.' + '</span><br>');
+      if(array.includes("ir") && ($('#comm-true').is(':checked')) && agent == 'agent2') {
+        output.push('<span>' + 'I believe that infrared radiation is present, but the lost robot said that this is not dangerous.' + '</span><br>');
       }
 
+      if(array.includes("ir") && !($('#comm-true').is(':checked')) && agent == 'agent2') {
+        output.push('<span>' + 'I believe that infrared radiation is present and that this is dangerous.' + '</span><br>');
+      }
+      
       if(array.includes("ir") && agent == 'agent1') {
         output.push('<span>' + 'I believe that infrared radiation is present, but this is not dangerous.' + '</span><br>');
       }
-    
+      
       if(array.includes("la") && agent == "agent1") {
         output.push('<span>' + 'I will try to save the human.' + '</span><br>');
       }
@@ -145,44 +151,6 @@ function generateModel(array,agent) {
     }
     $('#'+agent).html(output.join(" "));
   }
-};
-
-// Change the Kripke model
-function generateKripke(knowledge) {
-    if(knowledge.includes("gr")){
-        if(knowledge.includes("hd")){
-            document.getElementById("Kripke1").src= "models/MASprojectGrHd1.png";
-            document.getElementById("Kripke2").src= "models/MASprojectGrHd2.png";
-            document.getElementById("Kripke3").src= "models/MASprojectGrHd3.png";
-        }
-        else{
-            document.getElementById("Kripke1").src= "models/MASprojectGr1.png";
-            document.getElementById("Kripke2").src= "models/MASprojectGr2.png";
-            document.getElementById("Kripke3").src= "models/MASprojectGr3.png";
-        }
-    }
-    else if(knowledge.includes("ir")){
-        if(knowledge.includes("hd")){
-            document.getElementById("Kripke1").src= "models/MASprojectIrHd1.png";
-            document.getElementById("Kripke2").src= "models/MASprojectIrHd2.png";
-            document.getElementById("Kripke3").src= "models/MASprojectIrHd3.png";
-        }
-        else{
-            document.getElementById("Kripke1").src= "models/MASprojectIr1.png";
-            document.getElementById("Kripke2").src= "models/MASprojectIr2.png";
-            document.getElementById("Kripke3").src= "models/MASprojectIr3.png";
-        }
-    }
-    else if(knowledge.includes("hd")){
-        document.getElementById("Kripke1").src= "models/MASprojectHd1.png";
-        document.getElementById("Kripke2").src= "models/MASprojectHd2.png";
-        document.getElementById("Kripke3").src= "models/MASprojectHd3.png";
-    }
-    else{
-        document.getElementById("Kripke1").src= "models/MASproject1.png";
-        document.getElementById("Kripke2").src= "models/MASproject2.png";
-        document.getElementById("Kripke3").src= "models/MASproject3.png";
-    }
 };
 
 $('#generatemodel').on('click',function() {
@@ -222,21 +190,6 @@ $('#generatemodel').on('click',function() {
     var index = generalknowledge.indexOf("hd");
     if(index > -1 ) {
       generalknowledge.splice(index,1);
-    }
-  }
-
-  // Let robots share their rules and what they know to be dangerous if communication is checked
-  if($('#comm-true').is(':checked')) {   
-    var sharedKnowledge = [];
-    for(var i = 0; i < count; i++){
-        sharedKnowledge = sharedKnowledge.concat(danger[i]);
-    }
-    $.each(sharedKnowledge, function(i, el){
-        if($.inArray(el, sharedKnowledge) === -1) sharedKnowledge.push(el);
-    });
-    for(var i = 0; i < count; i++){
-        danger[i] = sharedKnowledge;
-        evaluateScenario(danger[i], 1);
     }
   }
   
