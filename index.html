@@ -33,6 +33,7 @@
             <li><a href="theory">Theory</a></li>
             <li><a href="simulation">Simulation</a></li>
             <li><a href="analysis">Analysis</a></li>
+	    <li><a href="conclusion">Conclusion</a></li>		  
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -43,7 +44,7 @@
 
       <div id="introduction">
         <h2>Introduction</h2>
-        <p>This is the project for the course Multi-Agent systems in the academic year 2016-2017 by Sjaak ten Caat, Denny Diepgrond, and Stefan Knegt.
+        <p>This is the project for the course Multi-Agent systems in the academic year 2016-2017 by Sjaak ten Caat, Denny Diepgrond and Stefan Knegt. We will demonstrate the possibility to model a multi-agent story with epistemic logic. 
       </div>
 
       <div id="problem-outline">
@@ -390,7 +391,7 @@
         <h2>Epistemic Analysis</h2>
         <p> We model theory of mind-properties for the agents with the KD45 system and added beliefs. The idea of bridging cognitive science and logic, by using dynamic epistemic logic to model theory of mind is not new (Verbrugge, 2009). Pol et al. (2016) used dynamic belief updates in a computational-level model of theory of mind. This way they formalize the aspect of theory of mind regarding the attribution of mental states. In the model they focus on epistemic states, in particular on belief. Our model is based on their approach. The most important difference is that in our model, the belief updates will not be based on sequences of actions but on public announcements that change the beliefs of the agents.
             <h3> Kripke Model </h3>
-            <p> In the figures below, Kripke models are shown that display the epistemic situation corresponding to the current state of the simulation.
+            <p> In the figures below, Kripke models can be created that display the epistemic situation corresponding to the state of the system after certain public announcements. To start or reset the creation of Kripke models, press the "Generate new Kripke model" button. 
 
 			<div class ="simulation-content">
 				<div class ="row">
@@ -453,12 +454,19 @@
 					</div>
 				</div>
 			</div>
-            The main challenge when constructing the Kripke model is the large amount of worlds that could be considered. As there are 6 axioms, which could each be true or false, there are $2^6=64$ possible worlds. However,
+            With the epistemic information provided in the Theory section, 11 possible world can be constructed. In the legend, these 11 worlds are shown with the corresponding truth values for the propositional atoms.
+	    In the other three frames we show the epistemic relations between the possible worlds for all agent types. By selecting different announcements to be made among the blue buttons, the user can update the Kripke model accordingly. 
+	    
+	    The main challenge when constructing the Kripke model is the large amount of worlds that could be considered. As there are 6 axioms, which could each be true or false, there are $2^6=64$ possible worlds. However,
             many of these worlds are irrelevant considering the general knowledge of the agents. For instance, in a world where gamma radiation is true, everyone believes that the radiation is dangerous to the robots, and so
-            none of the robots will act. So there are only two relevant worlds where gamma radiation is true, one where a human is in danger, and one where a human is not in danger. By eliminating irrelevant worlds like so, we
-            ended up with the 8 worlds shown in the legend, which prove sufficient for illustrating the change of the believes for each agent over the course of the story.
+            none of the robots will act. 
       </div>
 
+      <div id="conclusion">
+        <h2>Conclusion</h2>
+        <p> 
+      </div>	      
+	      
       <div id="references">
         <h2>References</h2>
         <li> Isaac Asimov. Little lost robot. Astounding Science Fiction, 39(1):111–132, 1947.
@@ -467,6 +475,7 @@
         <li> Pol, I., I. J. E. I. van Rooij, and J. Szymanik. "Parameterized complexity results for a model of theory of mind based on dynamic epistemic logic." (2016).
         <li> Verbrugge, Rineke. "Logic and social cognition." Journal of Philosophical Logic 38.6 (2009): 649-680.
       </div>
+	      
     </div>
   </div>
     <!-- Placed at the end of the document so the pages load faster -->
