@@ -39,7 +39,7 @@ function generateRobot(){
         newDiv1.className ="col-xs-6 col-sm-6 col-md-12";
         newDiv1.id ="robot" + count;
         newDiv2.className ="switch-title";
-        newDiv2.innerHTML = 'Robot ' + (count);
+        newDiv2.innerHTML = 'Normal Robot ' + (count-1);
         newForm.appendChild(newDiv2);
 
         newInput = document.createElement('input');
@@ -85,7 +85,7 @@ function generateRobot(){
         newDiv4.className = "agent";
         newDiv4.id = "agent" + count + "2";
 
-        newDiv3.innerHTML = "Normal Robot";
+        newDiv3.innerHTML = "Normal Robot " + (count-1);
 
         newImg.src = "otherRobots.png";
         newImg.width = 200;

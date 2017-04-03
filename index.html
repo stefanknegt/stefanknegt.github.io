@@ -208,10 +208,13 @@
         
         We have also created a separate simulation with some additions to the original simulation. We will first give a brief summary of each addition, as well as how it changes the simulation.
         <ol>
-        <li><strong>Allow Susan to tell each robot what they should perceive as dangerous.</strong> We've added this element as a checklist, in which the user can check the things that each robot 
-        should see as too dangerous so that it will no longer act. Yet the same difference between the lost robot and the normal robot still applies, so the normal robot believes that if gamma radiation 
-        is dangerous, then infrared radiation is dangerous as well. Meanwhile, the lost robot still thinks that these two are separate, and that the normal robot also thinks that these are separate. This can be 
-        expressed in the formulas $M \models B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, which replaces $M \models B_N ((Gr \lor Ir) \leftrightarrow Dr)$ in the original situation, 
+        <li><strong>Allow Susan to tell each robot what they should perceive as dangerous.</strong> In the original experiment, Susan warned both robots about the dangers of gamma radiation. In this simulation, we give
+        the user control about what Susan should tell each robot what they should watch out for. For instance, to simulate the original experiment, the user would check "gamma radiation" for both the lost robot and the 
+        normal robot. The same difference between the lost robot and the normal robot remains, so normal robots are still unable to distinguish between different types of radiation. This means that warning the normal robot
+        about either gamma radiation or infra-red, will result in the robot seeing both as dangerous. On the other hand, selecting only infra-red for the lost robot has the consequence that it will still act if there is
+        gamma radiation present, and the same applies if the lost robot is warned about gamma-radiation and infrared is present. 
+        
+        This can be expressed in the formulas $M \models B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, which replaces $M \models B_N ((Gr \lor Ir) \leftrightarrow Dr)$ in the original situation, 
         $M \models \neg B_L((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr))$, which replaces $M \models B_L (Gr \leftrightarrow Dr)$, and finally 
         $M \models B_L(\neg B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$, which replaces $M \models B_L (B_N (Gr \leftrightarrow Dr))$. Susan is still aware of these differences, so we 
         also replace $M \models B_S (B_N ((Gr \lor Ir) \leftrightarrow Dr))$ and $M \models B_S (B_L (B_N (Gr \leftrightarrow Dr)))$  with $M \models B_S (B_N((Gr \rightarrow Dr) \leftrightarrow (Ir \rightarrow Dr)))$ 
@@ -246,7 +249,7 @@
                     <div class="col-xs-6 col-sm-6 col-md-12">
                         <h4>1. Which circumstances should Susan warn the robots about?</h4>
                         <form class="form">
-                            <div class="switch-title"> Robot 1 </div>
+                            <div class="switch-title"> Lost Robot</div>
                             <input type="checkbox" id="1ir-danger">
                             <label for="ir-danger">Infra-red</label>
                             <input type="checkbox" id="1gr-danger">
@@ -257,7 +260,7 @@
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-12">
                         <form class="form">
-                            <div class="switch-title"> Robot 2 </div>
+                            <div class="switch-title"> Normal Robot 1</div>
                             <input type="checkbox" id="2ir-danger">
                             <label for="ir-danger">Infra-red</label>
                             <input type="checkbox" id="2gr-danger">
@@ -361,7 +364,7 @@
                   <div class="agent" id="agent12"></div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-3" id="knowledge">
-                  Normal Robot<br>
+                  Normal Robot 1<br>
                   <img src="otherRobots.png" width="200" height="200"/>
                   <div class="agent" id="agent22"></div>
                 </div>
