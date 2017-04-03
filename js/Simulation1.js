@@ -113,7 +113,9 @@ function generateModel(array,agent) {
         output.push('<span>' + 'I do not believe that a human is in danger so I will not act.' + '</span><br>');
       } else {  
         
-        output.push('<span>' + 'I believe a human is in danger.' + '</span><br>');
+        if((agent == "agent2" || agent == "agent1")) {
+          output.push('<span>' + 'I believe a human is in danger.' + '</span><br>');
+        }
 
         if(array.includes("gr") && array.includes("dr")) {
           output.push('<span>' + 'I believe that gamma radiation is present and that this is dangerous.' + '</span><br>');
