@@ -59,7 +59,7 @@ function checkImplications(array) {
       beliefnormal.push("na");
       changed = 1;
     }
-    if(array.includes("hd") && beliefnormal.includes("dr") && array.includes("dr") && !beliefnormal.includes("na") && !array.includes("comm")) {
+    if(array.includes("hd") && beliefnormal.includes("dr") && array.includes("dr") && !beliefnormal.includes("na") && !($('#comm-true').is(':checked')) {
       beliefnormal.push("na");
       changed = 1;
     }
@@ -108,6 +108,11 @@ function checkImplications(array) {
 function generateModel(array,agent) {
   var output = [];
   if(agent != 'generalknowledge') {
+    
+      if(!array.includes("hd")) {
+        output.push('<span>' + 'I do not believe that a human is in danger so I will not act.' + '</span><br>');
+      }   
+    
       if(array.includes("gr") && array.includes("dr")) {
         output.push('<span>' + 'I believe that gamma radiation is present and that this is dangerous.' + '</span><br>');
       }
@@ -124,17 +129,25 @@ function generateModel(array,agent) {
         output.push('<span>' + 'I believe that infrared radiation is present, but this is not dangerous.' + '</span><br>');
       }
       
-      if(array.includes("la") && agent == "agent1") {
-        output.push('<span>' + 'I will try to save the human.' + '</span><br>');
-      }
+      if(agent == "agent1" && belieflost.includes("na")) {
+        output.push('<span>' + 'I believe the other robots will try to save the human so will try to save the human as well to not get discovered.' + '</span><br>');
+      } 
     
       if(array.includes("na") && agent == "agent2") {
-        output.push('<span>' + 'I will try to save the human.' + '</span><br>');
+        output.push('<span>' + 'so I will try to save the human.' + '</span><br>');
+      }
+    
+      if(!array.includes("na") && ($('#comm-true').is(':checked')) && agent == "agent2") {
+        output.push('<span>' + 'One robot told me that the radiation will kill me, meaning that I cannot save humans in the future anymore so I will not try to save the human.' + '</span><br>');
       }
 
       if(array.includes("ID")) {
-        output.push('<span>' + 'I have identified the lost robot.' + '</span>');
+        output.push('<span>' + 'The two types of robot both acted in a different way so I have identified the lost robot.' + '</span>');
         alert("Well done, Susan has identified the lost robot.")
+      }
+
+      if(!array.includes("ID")) {
+        output.push('<span>' + 'The two types of robot acted in an identical way so I can not identify the lost robot.' + '</span>');
       }
 
       $('#'+agent).html(output.join(" "));
