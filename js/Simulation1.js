@@ -147,7 +147,6 @@ function generateModel(array,agent) {
 
       if(array.includes("ID")) {
         output.push('<span>' + 'The two types of robot both acted in a different way so I have identified the lost robot.' + '</span>');
-        alert("Well done, Susan has identified the lost robot.")
       }
 
       if(!array.includes("ID") && !(agent == "agent2" || agent == "agent1")) {

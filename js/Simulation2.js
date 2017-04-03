@@ -252,17 +252,14 @@ function generateModel2(array,agent) {
 
       if(array[i] == "IDDR") {
         output.push('<span>' + 'The lost robot moved, even though normal robots would not have moved given the information it has.' + '</span>');
-        alert("Well done, Susan has identified the lost robot.")
       }
 
       if(array[i] == "IDSA") {
         output.push('<span>' + 'The lost robot did not move, even though normal robots would have moved given the information it has.' + '</span>');
-        alert("Well done, Susan has identified the lost robot.")
       }
 
       if(array[i] == "IDEL") {
         output.push('<span>' + 'There is only one robot that acts how the lost robot would act given the information it has.' + '</span>');
-        alert("Well done, Susan has identified the lost robot.")
       }
     }
     $('#'+agent+'2').html(output.join(" "));
