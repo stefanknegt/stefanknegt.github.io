@@ -1,2 +1,2 @@
 # stefanknegt.github.io
-MAS Project
+Website for the Multi-Agent systems course at the University of Groningen.
